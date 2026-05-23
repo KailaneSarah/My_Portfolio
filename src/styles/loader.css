@@ -36,9 +36,6 @@
 
 .loader__dev {
   display: inline-block;
-  /* 🔴 Removido o will-change: transform para evitar o cache em bitmap de baixa resolução */
-  
-  /* Mantém o degradê perfeitamente aplicado ao texto */
   background: linear-gradient(135deg, var(--c-purple), var(--c-pink));
   -webkit-background-clip: text;
   background-clip: text;
@@ -46,7 +43,6 @@
   color: transparent;
 }
 
-/* Barra de Carregamento */
 .loader__bar-wrap {
   position: absolute;
   bottom: 0;

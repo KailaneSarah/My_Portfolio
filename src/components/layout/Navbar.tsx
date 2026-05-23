@@ -19,6 +19,7 @@ export default function Navbar() {
   const bar2Ref    = useRef<HTMLSpanElement>(null)
   const bar3Ref    = useRef<HTMLSpanElement>(null)
   const navRef     = useRef<HTMLElement>(null)
+  const btnRef     = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
     const onScroll = () => {
@@ -29,6 +30,18 @@ export default function Navbar() {
   }, [])
 
   useEffect(() => {
+    if (!btnRef.current) return
+
+    // calcula o centro do botão para o clip-path origin
+    const rect = btnRef.current.getBoundingClientRect()
+    const x = rect.left + rect.width / 2
+    const y = rect.top  + rect.height / 2
+
+    if (overlayRef.current) {
+      overlayRef.current.style.setProperty('--origin-x', `${x}px`)
+      overlayRef.current.style.setProperty('--origin-y', `${y}px`)
+    }
+
     if (open) {
       gsap.to(bar1Ref.current, { rotate: 45,  y: 6.5,  duration: 0.4, ease: 'power3.inOut' })
       gsap.to(bar2Ref.current, { opacity: 0,  scaleX: 0, duration: 0.2 })
@@ -40,9 +53,9 @@ export default function Navbar() {
         { opacity: 1, y: 0, stagger: 0.08, duration: 0.6, ease: 'power3.out', delay: 0.3 }
       )
     } else {
-      gsap.to(bar1Ref.current, { rotate: 0, y: 0,  duration: 0.4, ease: 'power3.inOut' })
+      gsap.to(bar1Ref.current, { rotate: 0, y: 0, duration: 0.4, ease: 'power3.inOut' })
       gsap.to(bar2Ref.current, { opacity: 1, scaleX: 1, duration: 0.3, delay: 0.1 })
-      gsap.to(bar3Ref.current, { rotate: 0, y: 0,  duration: 0.4, ease: 'power3.inOut' })
+      gsap.to(bar3Ref.current, { rotate: 0, y: 0, duration: 0.4, ease: 'power3.inOut' })
 
       gsap.to(itemsRef.current, { opacity: 0, y: 30, duration: 0.3, stagger: 0.04 })
     }
@@ -56,18 +69,20 @@ export default function Navbar() {
         <a href="#home" className="nav__logo">
           @SarahDev
         </a>
+
         <div className="nav__right">
-    <ThemeToggle />
-    <button
-      className="nav__menu-btn"
-      onClick={() => setOpen(v => !v)}
-      aria-label={open ? 'Fechar menu' : 'Abrir menu'}
-    >
-      <span ref={bar1Ref} />
-      <span ref={bar2Ref} />
-      <span ref={bar3Ref} />
-    </button>
-  </div>
+          <ThemeToggle />
+          <button
+            ref={btnRef}
+            className="nav__menu-btn"
+            onClick={() => setOpen(v => !v)}
+            aria-label={open ? 'Fechar menu' : 'Abrir menu'}
+          >
+            <span ref={bar1Ref} />
+            <span ref={bar2Ref} />
+            <span ref={bar3Ref} />
+          </button>
+        </div>
       </nav>
 
       <div ref={overlayRef} className={`menu-overlay ${open ? 'open' : ''}`}>

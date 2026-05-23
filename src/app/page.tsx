@@ -10,6 +10,7 @@ import Contact from '@/components/sections/Contact'
 import SmoothScroll from '@/components/ui/SmoothScroll'
 import Transition from '@/components/sections/Transition'
 import TechLoop from '@/components/sections/TechLoop'
+import CurvedLoop from '@/components/ui/CurvedLoop'
 
 export default function Home() {
   return (
@@ -22,19 +23,27 @@ export default function Home() {
           <section id="home">
             <Hero />
           </section>
+
           <section id="tech">
             <TechLoop />
           </section>
+
           <section id="work">
             <Work />
           </section>
-          <section id="transition">
+
+          <CurvedLoop speed={3.0} curveAmount={280} direction="left" interactive visibleOn="mobile" />
+
+          <section id="transition" className="transition-wrapper">
             <Transition />
           </section>
-          
+
           <section id="about">
             <About />
           </section>
+
+          <CurvedLoop speed={3.0} curveAmount={280} direction="left" interactive visibleOn="desktop" />
+
           <section id="contact">
             <Contact />
           </section>

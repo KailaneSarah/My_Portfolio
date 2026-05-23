@@ -400,8 +400,8 @@
   .pcCardWrapper {
     width: 100%;
     max-width: 380px;
-
-    height: 540px;
+    height: 500px;
+    margin: 0 auto;   
   }
 
   .pcDetails h3 {

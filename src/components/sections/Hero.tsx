@@ -32,7 +32,7 @@ export default function Hero() {
         <h1 className="hero__title">
           <span className="line"><span ref={line1}>Oi, eu sou </span></span>
           <span className="line">
-            <span ref={line2}>Sarah<span className="accent">!</span></span>
+            <span ref={line2}>Kailane Sarah<span className="accent">:)</span></span>
           </span>
         </h1>
 
@@ -48,6 +48,7 @@ export default function Hero() {
           <a href="#about" className="btn-secondary">Sobre mim</a>
         </div>
       </SectionInner>
+
     </section>
   );
 }

@@ -1,0 +1,78 @@
+/* VISIBILIDADE */
+
+.curved-loop--mobile {
+  display: none;
+}
+
+.curved-loop--desktop {
+  display: block;
+}
+
+.curved-loop--both {
+  display: block;
+}
+
+/* BASE — escondido por padrão */
+
+.curved-loop {
+  width: 100%;
+  overflow: hidden;
+  background: var(--c-bg);
+  padding: 2rem 0;
+  display: none; 
+}
+
+.curved-loop__svg {
+  width: 100%;
+  overflow: visible;
+  display: block;
+  aspect-ratio: 100 / 28;
+  user-select: none;
+}
+
+/* TEXTO */
+
+.curved-loop__text {
+  font-family: var(--font-bricolage);
+  font-size: 15rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  fill: var(--c-text-muted);
+  letter-spacing: 0.04em;
+}
+
+.curved-loop__word--highlight {
+  font-weight: 900;
+}
+
+/* VISIBILIDADE */
+
+.curved-loop--desktop {
+  display: block;        
+}
+
+.curved-loop--both {
+  display: block;     
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+  .curved-loop--mobile {
+    display: block;        
+  }
+
+  .curved-loop--desktop {
+    display: none;          
+  }
+
+  .curved-loop__text {
+    font-size: 14rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .curved-loop__text {
+    font-size: 10rem;
+  }
+}

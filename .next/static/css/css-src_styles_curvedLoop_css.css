@@ -1,0 +1,41 @@
+/*!***********************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[12].use[3]!./src/styles/curvedLoop.css ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************/
+/* ───────────────────────────── */
+/* CurvedLoop — mobile only      */
+/* ───────────────────────────── */
+
+.curved-loop__svg {
+  width: 100%;
+  overflow: visible;
+  display: block;
+  aspect-ratio: 100 / 28;   /* ← mais altura para o texto maior */
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+
+.curved-loop__text {
+  font-family: var(--font-bricolage);
+  font-size: 13rem;          /* ← bem maior */
+  font-weight: 800;
+  text-transform: uppercase;
+  fill: var(--c-text-muted);
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 768px) {
+  .curved-loop {
+    display: block;
+  }
+
+  .curved-loop__text {
+    font-size: 10rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .curved-loop__text {
+    font-size: 7rem;
+  }
+}

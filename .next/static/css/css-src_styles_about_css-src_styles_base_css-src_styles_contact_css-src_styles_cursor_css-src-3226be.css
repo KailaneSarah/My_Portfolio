@@ -218,6 +218,7 @@ textarea {
   background: var(--c-purple);
 
   color: white;
+  text-align: center;
 
   transform: translateY(-2px);
 
@@ -342,6 +343,53 @@ textarea {
   font-weight: 600;
 
   margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-bottom: 3rem;
+  }
+
+  .section-title {
+    font-size: clamp(var(--text-lg), 10vw, var(--text-xl));
+  }
+
+  .transition-wrapper {
+    display: none;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    font-size: var(--text-sm);
+    padding: 0.8rem 1.5rem;
+    width: 100%;
+    display: flex;            /* ← flex no lugar de inline-flex */
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    letter-spacing: 0;        /* ← letter-spacing quebra centralização */
+  }
+
+  .btn-ghost {
+    font-size: var(--text-sm);
+  }
+}
+
+@media (max-width: 480px) {
+  .btn-primary,
+  .btn-secondary {
+    font-size: var(--text-xs);
+    padding: 0.75rem 1.25rem;
+  }
+
+  .hero__cta {
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+  }
 }
 /*!*******************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[12].use[3]!./src/styles/cursor.css ***!
@@ -490,9 +538,6 @@ textarea {
 
 .loader__dev {
   display: inline-block;
-  /* 🔴 Removido o will-change: transform para evitar o cache em bitmap de baixa resolução */
-  
-  /* Mantém o degradê perfeitamente aplicado ao texto */
   background: linear-gradient(135deg, var(--c-purple), var(--c-pink));
   -webkit-background-clip: text;
   background-clip: text;
@@ -500,7 +545,6 @@ textarea {
   color: transparent;
 }
 
-/* Barra de Carregamento */
 .loader__bar-wrap {
   position: absolute;
   bottom: 0;
@@ -535,13 +579,17 @@ textarea {
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--nav-border);
   border-radius: 999px;
-  transition: background 0.4s var(--ease-expo), border-color 0.4s;
+  transition:
+    background 0.4s var(--ease-expo),
+    border-color 0.4s;
 }
 
 .nav.scrolled {
   background: var(--nav-bg);
   border-color: var(--c-border-strong);
 }
+
+/* LOGO */
 
 .nav__logo {
   font-family: var(--font-bricolage);
@@ -557,33 +605,40 @@ textarea {
   color: var(--c-purple);
 }
 
+/* RIGHT */
+
 .nav__right {
   display: flex;
   align-items: center;
   gap: 0.25rem;
 }
 
+/* THEME TOGGLE */
+
 .theme-toggle {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   background: none;
   border: none;
   border-radius: 999px;
-  font-size: var(--text-md);
+  font-size: 1.5rem;   
   color: var(--c-fg);
   cursor: pointer;
-  transition: background 0.2s, opacity 0.3s;
+  transition:
+    background 0.2s,
+    color 0.2s;
   line-height: 1;
   padding: 0;
 }
 
 .theme-toggle:hover {
   background: var(--c-border);
-  opacity: 1;
 }
+
+/* MENU BUTTON */
 
 .nav__menu-btn {
   display: flex;
@@ -591,37 +646,39 @@ textarea {
   justify-content: center;
   align-items: center;
   gap: 5px;
-  width: 40px;
-  height: 40px;
+  width: 44px;              /* ← maior */
+  height: 44px;
   background: var(--c-border);
   border: 1px solid var(--c-border-strong);
   border-radius: 999px;
   padding: 0;
   cursor: pointer;
-  transition: background 0.2s, border-color 0.2s;
+  transition:
+    background 0.2s,
+    border-color 0.2s;
 }
 
 .nav__menu-btn:hover {
   background: var(--c-border-strong);
-  border-color: var(--c-border-strong);
 }
 
 .nav__menu-btn span {
   display: block;
-  width: 16px;
+  width: 18px;        
   height: 2px;
   background: var(--c-fg);
   border-radius: 2px;
   transform-origin: center;
-  transition: transform 0.4s var(--ease-expo), opacity 0.3s;
 }
+
+/* OVERLAY */
 
 .menu-overlay {
   position: fixed;
   inset: 0;
   z-index: 99;
-  background: var(--c-fg);
-  clip-path: circle(0% at calc(100% - 3.5rem) 2.5rem);
+  background: var(--c-bg); 
+  clip-path: circle(0% at var(--origin-x, calc(100% - 3.5rem)) var(--origin-y, 2.5rem));
   transition: clip-path 0.8s var(--ease-expo);
   display: flex;
   flex-direction: column;
@@ -629,19 +686,21 @@ textarea {
 }
 
 .menu-overlay.open {
-  clip-path: circle(150% at calc(100% - 3.5rem) 2.5rem);
+  clip-path: circle(150% at var(--origin-x, calc(100% - 3.5rem)) var(--origin-y, 2.5rem));
 }
+
+/* LINKS */
 
 .menu-overlay__item {
   font-family: var(--font-bricolage);
   font-size: clamp(var(--text-xl), 7vw, var(--text-4xl));
   font-weight: 700;
   letter-spacing: var(--tracking-tight);
-  color: var(--c-bg);
+  color: var(--c-fg);   
   text-decoration: none;
   line-height: 1;
   padding: 0.4em 0;
-  border-bottom: 1px solid var(--c-border);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -649,21 +708,35 @@ textarea {
   opacity: 0;
   transform: translateY(40px);
   transition: color 0.3s;
+  background: linear-gradient(90deg, var(--c-purple), var(--c-pink));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: var(--c-fg);
 }
 
 .menu-overlay__item:hover {
-  color: var(--c-violet);
+  -webkit-text-fill-color: transparent; 
 }
 
 .menu-overlay__item .arrow {
   font-size: 0.5em;
   opacity: 0.4;
+  -webkit-text-fill-color: var(--c-fg);
+  transition: opacity 0.3s;
 }
+
+.menu-overlay__item:hover .arrow {
+  opacity: 1;
+  -webkit-text-fill-color: var(--c-pink);
+}
+
+/* SOCIALS */
 
 .menu-overlay__socials {
   margin-top: auto;
   display: flex;
   gap: 2rem;
+  flex-wrap: wrap;
 }
 
 .menu-overlay__socials a {
@@ -672,7 +745,7 @@ textarea {
   font-weight: 500;
   letter-spacing: var(--tracking-wider);
   text-transform: uppercase;
-  color: var(--c-text-soft);
+  color: rgba(255, 255, 255, 0.45);
   text-decoration: none;
   transition: color 0.3s;
 }
@@ -680,10 +753,26 @@ textarea {
 .menu-overlay__socials a:hover {
   color: var(--c-bg);
 }
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+  .nav {
+    width: calc(100% - 2rem);
+    top: 0.75rem;
+  }
+
+  .menu-overlay {
+    padding: 5rem 1.5rem 2.5rem;
+  }
+
+  .menu-overlay__socials {
+    gap: 1.25rem;
+  }
+}
 /*!*****************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[12].use[3]!./src/styles/hero.css ***!
   \*****************************************************************************************************************************************************************************************************************************************************************/
-/* ── Hero ── */
 .hero {
   position: relative;
   width: 100vw;
@@ -826,10 +915,6 @@ textarea {
 /*!*****************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[12].use[3]!./src/styles/work.css ***!
   \*****************************************************************************************************************************************************************************************************************************************************************/
-/* ───────────────────────────── */
-/* Work Layout & Header */
-/* ───────────────────────────── */
-
 .work {
   padding: 8rem 2.5rem;
   min-height: 100vh;
@@ -879,10 +964,6 @@ textarea {
   gap: 4rem;
   align-items: start;
 }
-
-/* ───────────────────────────── */
-/* LIST */
-/* ───────────────────────────── */
 
 .work-list {
   display: flex;
@@ -975,10 +1056,6 @@ textarea {
   color: var(--c-purple);
 }
 
-/* ───────────────────────────── */
-/* PREVIEW */
-/* ───────────────────────────── */
-
 .work-preview {
   position: sticky;
   top: 6rem;
@@ -1049,11 +1126,6 @@ textarea {
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.6);
 }
-
-/* ───────────────────────────── */
-/* RESPONSIVE */
-/* ───────────────────────────── */
-
 @media (max-width: 1024px) {
   .work-grid {
     grid-template-columns: 1fr;
@@ -1105,8 +1177,6 @@ textarea {
 /*!******************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[12].use[3]!./src/styles/about.css ***!
   \******************************************************************************************************************************************************************************************************************************************************************/
-/* ── About ───────────────────────── */
-
 .about {
   padding: 8rem 2.5rem;
   overflow: hidden;
@@ -1133,6 +1203,7 @@ textarea {
   height: -moz-fit-content;
   height: fit-content;
   position: relative;
+  max-width: 100%;
 }
 
 /* RIGHT — texto */
@@ -1144,15 +1215,11 @@ textarea {
 
 .about__tagline {
   font-family: var(--font-bricolage);
-
   font-size: var(--text-2xl);
   line-height: 0.95;
-
   letter-spacing: var(--tracking-tight);
-  font-weight: 700; 
-
+  font-weight: 700;
   color: var(--c-fg);
-
   margin-bottom: 2rem;
 }
 
@@ -1162,13 +1229,10 @@ textarea {
 
 .about__body {
   max-width: 58ch;
-
   font-family: var(--font-nunito);
   font-size: var(--text-base);
   font-weight: 400;
-
   line-height: 1.9;
-
   color: var(--c-text-muted);
 }
 
@@ -1182,28 +1246,20 @@ textarea {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
-
   margin-top: 2.5rem;
 }
 
 .about__skill {
   font-family: var(--font-nunito);
-
   padding: 0.75rem 1rem;
-
   border: 1px solid var(--c-border);
   border-radius: 999px;
-
   font-size: var(--text-sm);
   font-weight: 500;
-
   letter-spacing: var(--tracking-wider);
   text-transform: uppercase;
-
   color: var(--c-text-muted);
-
   background: var(--c-surface-elevated);
-
   transition:
     border-color .3s ease,
     transform .3s ease,
@@ -1213,59 +1269,76 @@ textarea {
 
 .about__skill:hover {
   transform: translateY(-2px);
-
   border-color: var(--c-pink);
-
   color: var(--c-pink);
-
   background: rgba(168, 85, 247, 0.06);
 }
 
-/* RESPONSIVE */
+/* ── RESPONSIVE ───────────────────── */
 
 @media (max-width: 1100px) {
   .about__grid {
-    grid-template-columns: 1fr;
-    gap: 5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .about__side {
+    order: 1;
+    max-width: 100%;
+    width: 100%;
   }
 
   .about__card-wrapper {
+    order: 2;
     margin: 0 auto;
+    width: 100%;
   }
 }
 
 @media (max-width: 768px) {
   .about {
-    padding: 6rem 1.5rem;
+    padding: 4rem 1.5rem;
+  }
+
+  .about__grid {
+    gap: 3rem;
   }
 
   .about__tagline {
-    font-size: var(--text-2xl);
+    font-size: clamp(var(--text-xl), 6vw, var(--text-2xl));
   }
 
   .about__body {
     font-size: var(--text-base);
   }
+
+  .about__skills {
+    gap: 0.5rem;
+  }
+
+  .about__skill {
+    padding: 0.5rem 0.75rem;
+    font-size: var(--text-xs);
+  }
 }
 /*!********************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[12].use[3]!./src/styles/contact.css ***!
   \********************************************************************************************************************************************************************************************************************************************************************/
-/* ───────────────────────────── */
-/* Contact */
-/* ───────────────────────────── */
-
 .contact {
   position: relative;
   min-height: 100vh;
-  overflow: hidden;
+  overflow: hidden;       
   padding: 8rem 2.5rem 2rem;
+  background: var(--c-bg);
 }
 
 /* BACKGROUND */
 
 .contact__bg {
   position: absolute;
-  inset: 0;
+  inset: 0;               
   z-index: 0;
 }
 
@@ -1284,7 +1357,7 @@ textarea {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  pointer-events: none;
+  pointer-events: none;   
 }
 
 .contact__content {
@@ -1324,7 +1397,7 @@ textarea {
 /* EMAIL */
 
 .contact__email {
-  pointer-events: auto;
+  pointer-events: auto;   
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
@@ -1373,7 +1446,7 @@ textarea {
   display: flex;
   align-items: center;
   gap: 1.5rem;
-  pointer-events: auto;
+  pointer-events: auto;  
 }
 
 .contact__footer-social {
