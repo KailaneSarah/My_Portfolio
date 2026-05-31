@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { Renderer, Program, Mesh, Color, Triangle } from 'ogl';
+import { Program, Mesh, Color, Triangle } from 'ogl';
+import { acquireRenderer, releaseRenderer } from '@/hooks/webGLContext';
 
 interface AuroraProps {
   colorStops?: string[];
@@ -127,17 +128,22 @@ export default function Aurora({
     const container = containerRef.current;
     if (!container) return;
 
-    const renderer = new Renderer({
-      alpha: true,
-      premultipliedAlpha: true,
-      antialias: true,
-    });
+    // ── renderer compartilhado ────────────────────────────────────────────────
+    const renderer = acquireRenderer();
+    if (!renderer) return;
 
     const gl = renderer.gl;
-    gl.clearColor(0, 0, 0, 0);
-    gl.enable(gl.BLEND);
-    gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
 
+    // canvas próprio para exibir o output deste componente
+    const canvas = document.createElement('canvas');
+    Object.assign(canvas.style, {
+      position: 'absolute',
+      top: '0', left: '0',
+      width: '100%', height: '100%',
+    });
+    container.appendChild(canvas);
+
+    // ── geometria e programa ──────────────────────────────────────────────────
     const geometry = new Triangle(gl);
     if (geometry.attributes.uv) delete geometry.attributes.uv;
 
@@ -150,83 +156,84 @@ export default function Aurora({
       vertex: VERT,
       fragment: FRAG,
       uniforms: {
-        uTime: { value: 0 },
-        uAmplitude: { value: amplitude },
+        uTime:       { value: 0 },
+        uAmplitude:  { value: amplitude },
         uColorStops: { value: colorStopsArray },
         uResolution: { value: [container.offsetWidth, container.offsetHeight] },
-        uBlend: { value: blend },
-        uIntensity: { value: intensity },
+        uBlend:      { value: blend },
+        uIntensity:  { value: intensity },
       },
     });
 
     const mesh = new Mesh(gl, { geometry, program });
 
-    const canvas = gl.canvas;
-    Object.assign(canvas.style, {
-      position: 'absolute',
-      top: '0',
-      left: '0',
-      width: '100%',
-      height: '100%',
-    });
-    container.appendChild(canvas);
-
-    // ─── resize ───────────────────────────────────────────────────────────────
+    // ── resize ────────────────────────────────────────────────────────────────
     const handleResize = () => {
       const w = container.offsetWidth || window.innerWidth;
       const h = container.offsetHeight || window.innerHeight;
-      renderer.setSize(w, h);
+      canvas.width  = w;
+      canvas.height = h;
       program.uniforms.uResolution.value = [w, h];
     };
     window.addEventListener('resize', handleResize);
     handleResize();
 
-    // ─── render loop ──────────────────────────────────────────────────────────
+    // ── render loop ───────────────────────────────────────────────────────────
     let animId: number;
 
     const update = (t: number) => {
       animId = requestAnimationFrame(update);
+
+      const w = canvas.width;
+      const h = canvas.height;
+
+      // renderiza no contexto compartilhado
+      renderer.setSize(w, h);
+      gl.viewport(0, 0, w, h);
+      gl.clear(gl.COLOR_BUFFER_BIT);
       program.uniforms.uTime.value = t * 0.001 * speed * 0.1;
       renderer.render({ scene: mesh });
+
+      // copia o resultado para o canvas visível
+      const ctx = canvas.getContext('2d');
+      if (ctx) {
+        ctx.clearRect(0, 0, w, h);
+        ctx.drawImage(gl.canvas, 0, 0, w, h);
+      }
     };
     animId = requestAnimationFrame(update);
 
-    // ─── WebGL context lost/restored (mobile GPU pode descartar o contexto) ──
+    // ── context lost / restored ───────────────────────────────────────────────
     const onContextLost = (e: Event) => {
       e.preventDefault();
       cancelAnimationFrame(animId);
     };
-
     const onContextRestored = () => {
       handleResize();
       animId = requestAnimationFrame(update);
     };
+    gl.canvas.addEventListener('webglcontextlost',     onContextLost,     false);
+    gl.canvas.addEventListener('webglcontextrestored', onContextRestored, false);
 
-    canvas.addEventListener('webglcontextlost', onContextLost, false);
-    canvas.addEventListener('webglcontextrestored', onContextRestored, false);
-
-    // ─── Page Visibility (pausa quando aba some, retoma quando volta) ─────────
+    // ── visibility ────────────────────────────────────────────────────────────
     const handleVisibility = () => {
       if (document.hidden) {
         cancelAnimationFrame(animId);
       } else {
-        // pequeno delay para garantir que o contexto foi restaurado
-        setTimeout(() => {
-          animId = requestAnimationFrame(update);
-        }, 100);
+        setTimeout(() => { animId = requestAnimationFrame(update); }, 100);
       }
     };
     document.addEventListener('visibilitychange', handleVisibility);
 
-    // ─── cleanup ──────────────────────────────────────────────────────────────
+    // ── cleanup ───────────────────────────────────────────────────────────────
     return () => {
       cancelAnimationFrame(animId);
       window.removeEventListener('resize', handleResize);
       document.removeEventListener('visibilitychange', handleVisibility);
-      canvas.removeEventListener('webglcontextlost', onContextLost);
-      canvas.removeEventListener('webglcontextrestored', onContextRestored);
+      gl.canvas.removeEventListener('webglcontextlost',     onContextLost);
+      gl.canvas.removeEventListener('webglcontextrestored', onContextRestored);
       if (canvas.parentNode === container) container.removeChild(canvas);
-      gl.getExtension('WEBGL_lose_context')?.loseContext();
+      releaseRenderer();
     };
   }, [amplitude, blend, speed, intensity, colorStops]);
 

@@ -25,17 +25,17 @@ export function useAboutAnimation({
       if (words.current!.length > 0) {
         gsap.fromTo(
           words.current,
-          { opacity: 0, y: 20 },
+          { opacity: 0, y: 16 },
           {
             opacity: 1,
             y: 0,
-            stagger: 0.06,
-            duration: 0.6,
+            stagger: 0.03,     
+            duration: 0.5,
             ease: "power3.out",
             scrollTrigger: {
               trigger: section.current,
-              start: "top 75%",
-              toggleActions: "play none none none",
+              start: "top 60%",  
+              toggleActions: "play none none reset",
             },
           }
         );
@@ -44,23 +44,17 @@ export function useAboutAnimation({
       if (card?.current) {
         gsap.fromTo(
           card.current,
-          {
-            opacity: 0,
-            y: 80,
-            scale: 0.92,
-            rotateY: -8,
-          },
+          { opacity: 0, y: 60, scale: 0.94 },
           {
             opacity: 1,
             y: 0,
             scale: 1,
-            rotateY: 0,
-            duration: 1,
+            duration: 0.9,
             ease: "power4.out",
             scrollTrigger: {
               trigger: card.current,
-              start: "top 80%",
-              toggleActions: "play none none none",
+              start: "top 70%",  
+              toggleActions: "play none none reset",
             },
           }
         );
@@ -69,16 +63,16 @@ export function useAboutAnimation({
       if (body.current) {
         gsap.fromTo(
           body.current,
-          { opacity: 0, x: 30 },
+          { opacity: 0, x: 24 },
           {
             opacity: 1,
             x: 0,
-            duration: 0.8,
+            duration: 0.7,
             ease: "power3.out",
             scrollTrigger: {
-              trigger: card?.current ?? body.current,
-              start: "top 65%",
-              toggleActions: "play none none none",
+              trigger: body.current,  
+              start: "top 75%",
+              toggleActions: "play none none reset",
             },
           }
         );
@@ -88,21 +82,22 @@ export function useAboutAnimation({
         const skillItems = skills.current.querySelectorAll(".about__skill");
         gsap.fromTo(
           skillItems,
-          { opacity: 0, y: 12 },
+          { opacity: 0, y: 10 },
           {
             opacity: 1,
             y: 0,
-            stagger: 0.05,
-            duration: 0.5,
+            stagger: 0.04,
+            duration: 0.4,
             ease: "power2.out",
             scrollTrigger: {
-              trigger: card?.current ?? skills.current,
-              start: "top 55%",
-              toggleActions: "play none none none",
+              trigger: skills.current,  
+              start: "top 80%",
+              toggleActions: "play none none reset",
             },
           }
         );
       }
+
     }, section);
 
     return () => ctx.revert();

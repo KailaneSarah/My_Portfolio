@@ -12,14 +12,14 @@
   display: block;
 }
 
-/* BASE — escondido por padrão */
+/* BASE */
 
 .curved-loop {
   width: 100%;
   overflow: hidden;
   background: var(--c-bg);
-  padding: 2rem 0;
-  display: none; 
+  padding: 6rem 0 20rem; 
+  display: none;
 }
 
 .curved-loop__svg {
@@ -48,31 +48,39 @@
 /* VISIBILIDADE */
 
 .curved-loop--desktop {
-  display: block;        
+  display: block;
 }
 
 .curved-loop--both {
-  display: block;     
+  display: block;
 }
 
 /* RESPONSIVE */
 
 @media (max-width: 768px) {
+  .curved-loop {
+    padding: 4rem 0 8rem;
+  }
+
   .curved-loop--mobile {
-    display: block;        
+    display: block;
   }
 
   .curved-loop--desktop {
-    display: none;          
+    display: none;
   }
 
   .curved-loop__text {
-    font-size: 14rem;
+    font-size: 20rem; 
   }
 }
 
 @media (max-width: 480px) {
+  .curved-loop {
+    padding: 2rem 0 6rem;
+  }
+
   .curved-loop__text {
-    font-size: 10rem;
+    font-size: 16rem; 
   }
 }

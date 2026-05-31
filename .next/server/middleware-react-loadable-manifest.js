@@ -1,1 +1,1 @@
-self.__REACT_LOADABLE_MANIFEST="{}"
+self.__REACT_LOADABLE_MANIFEST="{\"app\\\\page.tsx -> eruda\":{\"id\":\"app\\\\page.tsx -> eruda\",\"files\":[\"static/chunks/_app-pages-browser_node_modules_eruda_eruda_js.js\"]}}"

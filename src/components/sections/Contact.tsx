@@ -1,9 +1,9 @@
 "use client";
 
 import { useRef } from "react";
-import Antigravity from "@/components/ui/Antigravity";
 import { SectionInner } from "@/components/layout/SectionWrapper";
 import { useContactAnimation } from "@/hooks/useContactAnimation";
+import ParticlesBg from "@/components/ui/ParticlesBg";
 
 const SOCIALS = [
   { name: "Instagram", href: "https://instagram.com" },
@@ -24,22 +24,17 @@ export default function Contact() {
     <section ref={section} className="contact">
 
       <div className="contact__bg">
-        <Antigravity
-          count={300}
-          magnetRadius={10}
-          ringRadius={10}
-          waveSpeed={0.4}
-          waveAmplitude={1}
-          particleSize={2}
-          lerpSpeed={0.1}
-          color="#ff0090"
-          particleShape="capsule"
-          pulseSpeed={3}
-          fieldStrength={10}
+        <ParticlesBg
+          particleCount={200}
+          particleSpread={10}
+          speed={0.1}
+          particleColors={["#ff0090", "#9000ff"]}
+          particleBaseSize={200}
+          sizeRandomness={1}
+          cameraDistance={10}
         />
       </div>
 
-      {/* Conteúdo centralizado com max-width */}
       <SectionInner className="contact__inner">
         <div className="contact__content">
           <span className="tech-section__badge">Contact</span>
@@ -49,11 +44,11 @@ export default function Contact() {
               <span ref={line1}>Vamos</span>
             </span>
             <span className="line">
-              <span ref={line2} className="stroke-text">trabalhar.</span>
+              <span ref={line2}>trabalhar.</span> 
             </span>
           </div>
 
-          <a ref={email} href="mailto:contato@email.com" className="contact__email">
+          <a ref={email} href="mailto:kailaneSarah.developer@email.com" className="contact__email">
             Entre em contato por: kailaneSarah.developer@email.com
             <span>↗</span>
           </a>
@@ -61,19 +56,19 @@ export default function Contact() {
 
         <div ref={footer} className="contact__footer">
           <span className="contact__footer-copy">
-            © {new Date().getFullYear()} Seu Nome — Todos os direitos reservados
+            © {new Date().getFullYear()} Kailane Sarah — Todos os direitos reservados
           </span>
 
           <div className="contact__footer-links">
-            {SOCIALS.map((social) => (
+            {SOCIALS.map(({ name, href }) => (
               <a
-                key={social.name}
-                href={social.href}
+                key={name}
+                href={href}
                 target="_blank"
                 rel="noreferrer"
                 className="contact__footer-social"
               >
-                {social.name}
+                {name}
               </a>
             ))}
           </div>

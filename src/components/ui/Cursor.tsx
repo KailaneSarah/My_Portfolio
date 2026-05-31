@@ -1,14 +1,24 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 
 export default function Cursor() {
   const blob0 = useRef<HTMLDivElement>(null)
   const blob1 = useRef<HTMLDivElement>(null)
   const blob2 = useRef<HTMLDivElement>(null)
+  const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
+    const check = () => setIsMobile(window.matchMedia('(max-width: 768px)').matches)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
+
+  useEffect(() => {
+    if (isMobile) return
+
     const blobs = [blob0.current!, blob1.current!, blob2.current!]
 
     const onMove = (e: MouseEvent) => {
@@ -19,7 +29,9 @@ export default function Cursor() {
 
     window.addEventListener('mousemove', onMove)
     return () => window.removeEventListener('mousemove', onMove)
-  }, [])
+  }, [isMobile])
+
+  if (isMobile) return null
 
   return (
     <>

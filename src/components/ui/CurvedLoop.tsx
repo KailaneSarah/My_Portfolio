@@ -11,13 +11,15 @@ interface Word {
 
 const WORDS: Word[] = [
   { text: "DEV", highlight: true },
-  { text: "{}"                   },
+  { text: "}{"                   },
   { text: "DEV", highlight: true },
-  { text: "{}"                   },
+  { text: "}{"                   },
   { text: "DEV", highlight: true },
-  { text: "{}"                   },
+  { text: "}{"                   },
   { text: "DEV", highlight: true },
-  { text: "{}"                   },
+  { text: "}{"                   },
+  { text: "DEV", highlight: true },
+  { text: "}{"                   },
 ];
 
 const MARQUEE_TEXT = WORDS.map((w) => w.text).join("\u00A0\u00A0");
@@ -32,7 +34,7 @@ interface CurvedLoopProps {
 
 export default function CurvedLoop({
   speed = 1.5,
-  curveAmount = 300,
+  curveAmount = 400,
   direction = "left",
   interactive = true,
   visibleOn = "mobile",
@@ -77,7 +79,6 @@ export default function CurvedLoop({
           </linearGradient>
         </defs>
 
-        {/* texto invisível apenas para medir */}
         <text
           ref={measureRef}
           className="curved-loop__text"
@@ -86,8 +87,7 @@ export default function CurvedLoop({
         >
           {MARQUEE_TEXT}
         </text>
-
-        {/* texto visível com tspan por palavra */}
+   
         {ready && repeatCount > 0 && (
           <text className="curved-loop__text" xmlSpace="preserve">
             <textPath

@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect } from 'react'
 import Loader from '@/components/ui/Loader'
 import Cursor from '@/components/ui/Cursor'
 import Navbar from '@/components/layout/Navbar'
@@ -12,9 +13,19 @@ import Transition from '@/components/sections/Transition'
 import TechLoop from '@/components/sections/TechLoop'
 import CurvedLoop from '@/components/ui/CurvedLoop'
 
+function ErudaDebug() {
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    import('eruda').then(({ default: eruda }) => eruda.init())
+  }, [])
+
+  return null
+}
+
 export default function Home() {
   return (
     <>
+      {process.env.NODE_ENV === 'development' && <ErudaDebug />}
       <Loader />
       <Cursor />
       <SmoothScroll>
@@ -32,7 +43,7 @@ export default function Home() {
             <Work />
           </section>
 
-          <CurvedLoop speed={3.0} curveAmount={280} direction="left" interactive visibleOn="mobile" />
+          <CurvedLoop speed={3.0} curveAmount={380} direction="left" interactive visibleOn="mobile" />
 
           <section id="transition" className="transition-wrapper">
             <Transition />
@@ -42,7 +53,7 @@ export default function Home() {
             <About />
           </section>
 
-          <CurvedLoop speed={3.0} curveAmount={280} direction="left" interactive visibleOn="desktop" />
+          <CurvedLoop speed={3.0} curveAmount={400} direction="left" interactive visibleOn="desktop" />
 
           <section id="contact">
             <Contact />

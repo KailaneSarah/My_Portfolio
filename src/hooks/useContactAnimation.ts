@@ -14,13 +14,32 @@ export function useContactAnimation(refs: {
   useEffect(() => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
-        scrollTrigger: { trigger: refs.section.current, start: "top 70%" },
+        scrollTrigger: {
+          trigger: refs.section.current,
+          start: "top 70%",
+          toggleActions: "play none none reset",
+        },
       });
 
-      tl.fromTo(refs.line1.current,  { y: "110%" }, { y: "0%",  duration: 0.9, ease: "power4.out" })
-        .fromTo(refs.line2.current,  { y: "110%" }, { y: "0%",  duration: 0.9, ease: "power4.out" }, "-=0.7")
-        .fromTo(refs.email.current,  { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, "-=0.4")
-        .fromTo(refs.footer.current, { opacity: 0 }, { opacity: 1, duration: 0.6 }, "-=0.2");
+      tl.fromTo(refs.line1.current,
+          { y: "110%" },
+          { y: "0%", duration: 1, ease: "expo.out" }
+        )
+        .fromTo(refs.line2.current,
+          { y: "110%" },
+          { y: "0%", duration: 1.4, ease: "expo.out" },
+          "-=0.5"
+        )
+        .fromTo(refs.email.current,
+          { opacity: 0, y: 24 },
+          { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" },
+          "-=0.4"
+        )
+        .fromTo(refs.footer.current,
+          { opacity: 0 },
+          { opacity: 1, duration: 0.6, ease: "power2.out" },
+          "-=0.2"
+        );
     }, refs.section);
 
     return () => ctx.revert();
