@@ -382,4 +382,13 @@ textarea {
     width: 100%;
     gap: 1rem;
   }
+
+@media (hover: none) and (pointer: coarse) {
+  .cursor,
+  .cursor-follower {
+    display: none !important;
+  }
+}
+
+
 }

@@ -171,6 +171,7 @@ export default function Aurora({
     });
     container.appendChild(canvas);
 
+    // ─── resize ───────────────────────────────────────────────────────────────
     const handleResize = () => {
       const w = container.offsetWidth || window.innerWidth;
       const h = container.offsetHeight || window.innerHeight;
@@ -180,7 +181,9 @@ export default function Aurora({
     window.addEventListener('resize', handleResize);
     handleResize();
 
+    // ─── render loop ──────────────────────────────────────────────────────────
     let animId: number;
+
     const update = (t: number) => {
       animId = requestAnimationFrame(update);
       program.uniforms.uTime.value = t * 0.001 * speed * 0.1;
@@ -188,9 +191,40 @@ export default function Aurora({
     };
     animId = requestAnimationFrame(update);
 
+    // ─── WebGL context lost/restored (mobile GPU pode descartar o contexto) ──
+    const onContextLost = (e: Event) => {
+      e.preventDefault();
+      cancelAnimationFrame(animId);
+    };
+
+    const onContextRestored = () => {
+      handleResize();
+      animId = requestAnimationFrame(update);
+    };
+
+    canvas.addEventListener('webglcontextlost', onContextLost, false);
+    canvas.addEventListener('webglcontextrestored', onContextRestored, false);
+
+    // ─── Page Visibility (pausa quando aba some, retoma quando volta) ─────────
+    const handleVisibility = () => {
+      if (document.hidden) {
+        cancelAnimationFrame(animId);
+      } else {
+        // pequeno delay para garantir que o contexto foi restaurado
+        setTimeout(() => {
+          animId = requestAnimationFrame(update);
+        }, 100);
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibility);
+
+    // ─── cleanup ──────────────────────────────────────────────────────────────
     return () => {
       cancelAnimationFrame(animId);
       window.removeEventListener('resize', handleResize);
+      document.removeEventListener('visibilitychange', handleVisibility);
+      canvas.removeEventListener('webglcontextlost', onContextLost);
+      canvas.removeEventListener('webglcontextrestored', onContextRestored);
       if (canvas.parentNode === container) container.removeChild(canvas);
       gl.getExtension('WEBGL_lose_context')?.loseContext();
     };
