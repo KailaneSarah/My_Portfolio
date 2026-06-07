@@ -1,0 +1,77 @@
+.about {
+  overflow: hidden;
+}
+
+.about__grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-4xl);
+  align-items: start; 
+}
+
+.about__card-wrapper {
+  width: fit-content;
+  position: relative;
+  max-width: 100%;
+}
+
+.about__side {
+  max-width: var(--content-width);
+}
+
+.about__tagline {
+  font-size: var(--text-2xl);
+}
+
+.about__body {
+  max-width: 58ch;
+  color: var(--c-text-muted);
+  line-height: 1.9;
+}
+
+.about__body p + p {
+  margin-top: var(--space-lg);
+}
+
+.about__skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-top: var(--space-xl);
+}
+
+@media (max-width: 1100px) {
+  .about__grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.about__resume {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: var(--space-xl);
+  text-decoration: none;
+  font-family: var(--font-nunito);
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--c-text-soft);
+  transition: color 0.3s ease, gap 0.4s var(--ease-expo);
+}
+
+.about__resume:hover {
+  color: var(--c-purple);
+  gap: 0.85rem;
+}
+
+.about__resume-icon {
+  display: inline-block;
+  font-size: 1.1em;
+  transition: transform 0.3s ease;
+}
+
+.about__resume:hover .about__resume-icon {
+  transform: translateY(3px);
+}

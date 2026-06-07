@@ -1,96 +1,69 @@
-/* ── Cursor customizado ───────────────────────── */
-
 * {
   cursor: none !important;
 }
 
 .cursor {
-  position: fixed;
-  top: 0;
-  left: 0;
-
+  position:       fixed;
+  top:            0;
+  left:           0;
   pointer-events: none;
-
-  z-index: 9999;
-
+  z-index:        9999;
   mix-blend-mode: difference;
 }
 
-/* DOT */
-
 .cursor__dot {
-  position: absolute;
-
-  width: 0.5rem;
-  height: 0.5rem;
-
+  position:      absolute;
+  width:         0.5rem;
+  height:        0.5rem;
   border-radius: 999px;
-
-  background: var(--c-fg);
-
-  transform: translate(-50%, -50%);
+  background:    var(--c-fg);
+  transform:     translate(-50%, -50%);
 
   transition:
-    width 0.25s var(--ease-expo),
-    height 0.25s var(--ease-expo),
-    background 0.3s ease,
-    opacity 0.3s ease;
+    width      .25s var(--ease-expo),
+    height     .25s var(--ease-expo),
+    background .3s ease,
+    opacity    .3s ease;
 }
 
-/* RING */
-
 .cursor__ring {
-  position: absolute;
-
-  width: 2.25rem;
-  height: 2.25rem;
-
+  position:      absolute;
+  width:         2.25rem;
+  height:        2.25rem;
   border-radius: 999px;
+  border:        1px solid var(--c-border-strong);
+  background:    rgba(255, 255, 255, 0.02);
 
-  border: 1px solid var(--c-border-strong);
-
-  background: rgba(255, 255, 255, 0.02);
-
-  backdrop-filter: blur(4px);
+  backdrop-filter:         blur(4px);
   -webkit-backdrop-filter: blur(4px);
 
   transform: translate(-50%, -50%);
 
   transition:
-    width 0.45s var(--ease-expo),
-    height 0.45s var(--ease-expo),
-    border-color 0.3s ease,
-    opacity 0.3s ease,
-    background 0.3s ease;
+    width        .45s var(--ease-expo),
+    height       .45s var(--ease-expo),
+    border-color .3s ease,
+    opacity      .3s ease,
+    background   .3s ease;
 }
 
-/* HOVER STATE */
-
 .cursor--hover .cursor__dot {
-  width: 3rem;
-  height: 3rem;
-
+  width:      3rem;
+  height:     3rem;
   background: var(--c-purple);
-
-  opacity: 0.95;
+  opacity:    0.95;
 }
 
 .cursor--hover .cursor__ring {
-  width: 4.5rem;
-  height: 4.5rem;
-
-  opacity: 0;
-
+  width:        4.5rem;
+  height:       4.5rem;
+  opacity:      0;
   border-color: var(--c-violet);
 }
-
-/* CLICK */
 
 .cursor--click .cursor__dot {
   transform: translate(-50%, -50%) scale(0.8);
 }
-
-/* MOBILE */
 
 @media (max-width: 768px) {
   .cursor {

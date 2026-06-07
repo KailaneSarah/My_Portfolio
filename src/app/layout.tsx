@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Cursor from "@/components/ui/static/Cursor";
 import "../styles/globals.css";
+import { FloatingSocials } from "@/components/ui/static/FloatingSocials";
 
 export default function RootLayout({
   children,
@@ -12,39 +14,19 @@ export default function RootLayout({
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const prefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)"
-    ).matches;
-
-    const savedTheme = localStorage.getItem("theme") as
-      | "light"
-      | "dark"
-      | null;
-
-    const initialTheme =
-      savedTheme || (prefersDark ? "dark" : "light");
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const savedTheme = localStorage.getItem("theme") as "light" | "dark" | null;
+    const initialTheme = savedTheme || (prefersDark ? "dark" : "light");
 
     setTheme(initialTheme);
-
-    document.documentElement.setAttribute(
-      "data-theme",
-      initialTheme
-    );
-
+    document.documentElement.setAttribute("data-theme", initialTheme);
     setMounted(true);
   }, []);
 
   const toggleTheme = () => {
-    const newTheme =
-      theme === "light" ? "dark" : "light";
-
+    const newTheme = theme === "light" ? "dark" : "light";
     setTheme(newTheme);
-
-    document.documentElement.setAttribute(
-      "data-theme",
-      newTheme
-    );
-
+    document.documentElement.setAttribute("data-theme", newTheme);
     localStorage.setItem("theme", newTheme);
   };
 
@@ -58,7 +40,11 @@ export default function RootLayout({
 
   return (
     <html lang="pt-BR" data-theme={theme}>
-      <body>{children}</body>
+      <body>
+        <Cursor />       
+        <FloatingSocials />   
+        {children}
+      </body>
     </html>
   );
 }

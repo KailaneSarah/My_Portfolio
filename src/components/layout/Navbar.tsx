@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
-import ThemeToggle from '../ui/ThemeToggle'
+import ThemeToggle from '../ui/static/ThemeToggle'
 
 const NAV_LINKS = [
   { label: 'Home',    href: '#home'    },
@@ -32,7 +32,6 @@ export default function Navbar() {
   useEffect(() => {
     if (!btnRef.current) return
 
-    // calcula o centro do botão para o clip-path origin
     const rect = btnRef.current.getBoundingClientRect()
     const x = rect.left + rect.width / 2
     const y = rect.top  + rect.height / 2

@@ -128,13 +128,11 @@ export default function Aurora({
     const container = containerRef.current;
     if (!container) return;
 
-    // ── renderer compartilhado ────────────────────────────────────────────────
     const renderer = acquireRenderer();
     if (!renderer) return;
 
     const gl = renderer.gl;
 
-    // canvas próprio para exibir o output deste componente
     const canvas = document.createElement('canvas');
     Object.assign(canvas.style, {
       position: 'absolute',
@@ -143,7 +141,6 @@ export default function Aurora({
     });
     container.appendChild(canvas);
 
-    // ── geometria e programa ──────────────────────────────────────────────────
     const geometry = new Triangle(gl);
     if (geometry.attributes.uv) delete geometry.attributes.uv;
 
@@ -167,7 +164,6 @@ export default function Aurora({
 
     const mesh = new Mesh(gl, { geometry, program });
 
-    // ── resize ────────────────────────────────────────────────────────────────
     const handleResize = () => {
       const w = container.offsetWidth || window.innerWidth;
       const h = container.offsetHeight || window.innerHeight;
@@ -178,7 +174,6 @@ export default function Aurora({
     window.addEventListener('resize', handleResize);
     handleResize();
 
-    // ── render loop ───────────────────────────────────────────────────────────
     let animId: number;
 
     const update = (t: number) => {
@@ -187,14 +182,12 @@ export default function Aurora({
       const w = canvas.width;
       const h = canvas.height;
 
-      // renderiza no contexto compartilhado
       renderer.setSize(w, h);
       gl.viewport(0, 0, w, h);
       gl.clear(gl.COLOR_BUFFER_BIT);
       program.uniforms.uTime.value = t * 0.001 * speed * 0.1;
       renderer.render({ scene: mesh });
 
-      // copia o resultado para o canvas visível
       const ctx = canvas.getContext('2d');
       if (ctx) {
         ctx.clearRect(0, 0, w, h);
@@ -203,7 +196,6 @@ export default function Aurora({
     };
     animId = requestAnimationFrame(update);
 
-    // ── context lost / restored ───────────────────────────────────────────────
     const onContextLost = (e: Event) => {
       e.preventDefault();
       cancelAnimationFrame(animId);
@@ -215,7 +207,6 @@ export default function Aurora({
     gl.canvas.addEventListener('webglcontextlost',     onContextLost,     false);
     gl.canvas.addEventListener('webglcontextrestored', onContextRestored, false);
 
-    // ── visibility ────────────────────────────────────────────────────────────
     const handleVisibility = () => {
       if (document.hidden) {
         cancelAnimationFrame(animId);
@@ -225,7 +216,6 @@ export default function Aurora({
     };
     document.addEventListener('visibilitychange', handleVisibility);
 
-    // ── cleanup ───────────────────────────────────────────────────────────────
     return () => {
       cancelAnimationFrame(animId);
       window.removeEventListener('resize', handleResize);

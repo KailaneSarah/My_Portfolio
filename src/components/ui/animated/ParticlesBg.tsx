@@ -59,17 +59,18 @@ const FRAG = /* glsl */`
 `;
 
 export interface ParticlesBgProps {
-  particleCount?:       number;
-  particleSpread?:      number;
-  speed?:               number;
-  particleColors?:      string[];
-  alphaParticles?:      boolean;
-  particleBaseSize?:    number;
-  sizeRandomness?:      number;
-  cameraDistance?:      number;
-  disableRotation?:     boolean;
-  moveParticlesOnHover?: boolean; 
-  particleHoverFactor?: number;   
+  particleCount?:        number;
+  particleSpread?:       number;
+  speed?:                number;
+  particleColors?:       string[];
+  alphaParticles?:       boolean;
+  particleBaseSize?:     number;
+  sizeRandomness?:       number;
+  cameraDistance?:       number;
+  disableRotation?:      boolean;
+  moveParticlesOnHover?: boolean;
+  particleHoverFactor?:  number;
+  mouseLerpEase?:        number;
 }
 
 export default function ParticlesBg({
@@ -82,8 +83,9 @@ export default function ParticlesBg({
   sizeRandomness       = 1,
   cameraDistance       = 20,
   disableRotation      = true,
-  moveParticlesOnHover = true,    
-  particleHoverFactor  = 1,        
+  moveParticlesOnHover = true,
+  particleHoverFactor  = 1,
+  mouseLerpEase        = 0.06,
 }: ParticlesBgProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -112,21 +114,19 @@ export default function ParticlesBg({
     window.addEventListener("resize", resize);
     resize();
 
-    // ── mouse 
-    const mouse = { x: 0, y: 0 };
+    const mouse   = { x: 0, y: 0 };
+    const current = { x: 0, y: 0 };
 
     const handleMouseMove = (e: MouseEvent) => {
       const rect = container.getBoundingClientRect();
       mouse.x =  ((e.clientX - rect.left) / rect.width)  * 2 - 1;
-      mouse.y = -((e.clientY - rect.top)  / rect.height)  * 2 + 1;
+      mouse.y = -((e.clientY - rect.top)  / rect.height) * 2 + 1;
     };
 
     if (moveParticlesOnHover) {
       container.addEventListener("mousemove", handleMouseMove);
     }
-   
 
-    // ── geometry ──
     const positions = new Float32Array(particleCount * 3);
     const randoms   = new Float32Array(particleCount * 4);
     const colors    = new Float32Array(particleCount * 3);
@@ -166,7 +166,6 @@ export default function ParticlesBg({
 
     const mesh = new Mesh(gl, { mode: gl.POINTS, geometry, program });
 
-    // ── loop ──
     let raf: number;
     let lastTime = performance.now();
     let elapsed  = 0;
@@ -179,8 +178,11 @@ export default function ParticlesBg({
       program.uniforms.uTime.value = elapsed * 0.001;
 
       if (moveParticlesOnHover) {
-        mesh.position.x = -mouse.x * particleHoverFactor;
-        mesh.position.y = -mouse.y * particleHoverFactor;
+        current.x += (mouse.x - current.x) * mouseLerpEase;
+        current.y += (mouse.y - current.y) * mouseLerpEase;
+
+        mesh.position.x = -current.x * particleHoverFactor;
+        mesh.position.y = -current.y * particleHoverFactor;
       } else {
         mesh.position.x = 0;
         mesh.position.y = 0;
@@ -205,7 +207,7 @@ export default function ParticlesBg({
       if (container.contains(gl.canvas)) container.removeChild(gl.canvas);
       gl.getExtension("WEBGL_lose_context")?.loseContext();
     };
- 
+
   }, []);
 
   return <div ref={containerRef} style={{ position: "absolute", inset: 0 }} />;

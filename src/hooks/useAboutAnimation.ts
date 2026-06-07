@@ -20,21 +20,24 @@ export function useAboutAnimation({
   card,
 }: UseAboutAnimationProps) {
   useEffect(() => {
+    const el = section.current;
+    if (!el) return;
+
     const ctx = gsap.context(() => {
 
-      if (words.current!.length > 0) {
+      if (words.current && words.current.length > 0) {
         gsap.fromTo(
           words.current,
           { opacity: 0, y: 16 },
           {
             opacity: 1,
             y: 0,
-            stagger: 0.03,     
+            stagger: 0.03,
             duration: 0.5,
             ease: "power3.out",
             scrollTrigger: {
-              trigger: section.current,
-              start: "top 60%",  
+              trigger: el,
+              start: "top 60%",
               toggleActions: "play none none reset",
             },
           }
@@ -53,7 +56,7 @@ export function useAboutAnimation({
             ease: "power4.out",
             scrollTrigger: {
               trigger: card.current,
-              start: "top 70%",  
+              start: "top 70%",
               toggleActions: "play none none reset",
             },
           }
@@ -70,7 +73,7 @@ export function useAboutAnimation({
             duration: 0.7,
             ease: "power3.out",
             scrollTrigger: {
-              trigger: body.current,  
+              trigger: body.current,
               start: "top 75%",
               toggleActions: "play none none reset",
             },
@@ -80,25 +83,27 @@ export function useAboutAnimation({
 
       if (skills.current) {
         const skillItems = skills.current.querySelectorAll(".about__skill");
-        gsap.fromTo(
-          skillItems,
-          { opacity: 0, y: 10 },
-          {
-            opacity: 1,
-            y: 0,
-            stagger: 0.04,
-            duration: 0.4,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: skills.current,  
-              start: "top 80%",
-              toggleActions: "play none none reset",
-            },
-          }
-        );
+        if (skillItems.length > 0) {
+          gsap.fromTo(
+            skillItems,
+            { opacity: 0, y: 10 },
+            {
+              opacity: 1,
+              y: 0,
+              stagger: 0.04,
+              duration: 0.4,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: skills.current,
+                start: "top 80%",
+                toggleActions: "play none none reset",
+              },
+            }
+          );
+        }
       }
 
-    }, section);
+    }, el); 
 
     return () => ctx.revert();
   }, [section, words, body, skills, card]);

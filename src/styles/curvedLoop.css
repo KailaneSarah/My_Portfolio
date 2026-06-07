@@ -1,43 +1,25 @@
-/* VISIBILIDADE */
-
-.curved-loop--mobile {
-  display: none;
-}
-
-.curved-loop--desktop {
-  display: block;
-}
-
-.curved-loop--both {
-  display: block;
-}
-
-/* BASE */
-
 .curved-loop {
-  width: 100%;
-  overflow: hidden;
+  width:      100%;
+  overflow:   hidden;
   background: var(--c-bg);
-  padding: 6rem 0 20rem; 
-  display: none;
+  padding:    6rem 0 10rem;
+  display:    none;
 }
 
 .curved-loop__svg {
-  width: 100%;
-  overflow: visible;
-  display: block;
+  width:        100%;
+  overflow:     visible;
+  display:      block;
   aspect-ratio: 100 / 28;
-  user-select: none;
+  user-select:  none;
 }
 
-/* TEXTO */
-
 .curved-loop__text {
-  font-family: var(--font-bricolage);
-  font-size: 15rem;
-  font-weight: 800;
+  font-family:    var(--font-primary);
+  font-size:      8rem;
+  font-weight:    800;
   text-transform: uppercase;
-  fill: var(--c-text-muted);
+  fill:           var(--c-text-muted);
   letter-spacing: 0.04em;
 }
 
@@ -45,17 +27,14 @@
   font-weight: 900;
 }
 
-/* VISIBILIDADE */
-
-.curved-loop--desktop {
-  display: block;
-}
-
+.curved-loop--desktop,
 .curved-loop--both {
   display: block;
 }
 
-/* RESPONSIVE */
+.curved-loop--mobile {
+  display: none;
+}
 
 @media (max-width: 768px) {
   .curved-loop {
@@ -71,7 +50,7 @@
   }
 
   .curved-loop__text {
-    font-size: 20rem; 
+    font-size: 20rem;
   }
 }
 
@@ -81,6 +60,6 @@
   }
 
   .curved-loop__text {
-    font-size: 16rem; 
+    font-size: 16rem;
   }
 }

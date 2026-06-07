@@ -17,12 +17,15 @@ export function useWorkAnimation(refs: {
           opacity: 1, y: 0,
           duration: 1,
           ease: "power3.out",
-          scrollTrigger: { trigger: refs.header.current, start: "top 85%" },
+          scrollTrigger: {
+            trigger: refs.header.current,
+            start: "top 85%",
+          },
         }
       );
 
-      if (!refs.items.current) return;
-      
+      if (!refs.items.current?.length) return;
+
       gsap.fromTo(refs.items.current,
         { opacity: 0, x: -30 },
         {
@@ -30,7 +33,10 @@ export function useWorkAnimation(refs: {
           stagger: 0.08,
           duration: 0.8,
           ease: "power3.out",
-          trigger: refs.items.current[0] ?? refs.section.current,
+          scrollTrigger: {                                    // ← estava faltando
+            trigger: refs.items.current[0] ?? refs.section.current,
+            start: "top 85%",
+          },
         }
       );
     }, refs.section);

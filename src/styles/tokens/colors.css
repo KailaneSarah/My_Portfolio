@@ -1,0 +1,22 @@
+:root {
+  --c-bg: #f8f5ff;
+  --c-fg: #0a0614;
+
+  --c-surface: #ede8f5;
+  --c-surface-elevated: rgba(255, 255, 255, 0.72);
+
+  --c-text-muted: rgba(10, 6, 20, 0.66);
+  --c-text-soft: rgba(10, 6, 20, 0.42);
+
+  --c-border: rgba(10, 6, 20, 0.08);
+  --c-border-strong: rgba(10, 6, 20, 0.16);
+
+  --c-purple: #7b2fbe;
+  --c-violet: #a855f7;
+  --c-pink: #ff0090;
+
+  --c-pink-rgb: 255, 0, 144;
+
+  --gradient-down: linear-gradient(to bottom, var(--c-bg), transparent);
+  --gradient-up: linear-gradient(to top, var(--c-bg), transparent);
+}

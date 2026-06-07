@@ -10,44 +10,8 @@
   margin-top: -150px;
 }
 
-
-.tech-section__header {
-  width: min(1000px, 92%);
-  margin: 0 auto 56px;
-}
-
-.tech-section__header__texts {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;            
-  gap: 40px;                      
-  text-align: left;               
-}
-
-.tech-section__header__texts h2 {
-  max-width: 50%;
-  margin-bottom: 0; 
-  font-family: var(--font-bricolage);
-  font-size: clamp(var(--text-xl), 5vw, var(--text-2xl));
-  font-weight: 700;
-  letter-spacing: var(--tracking-tight);
-  line-height: 0.95;
-  color: var(--c-fg);
-}
-
-.tech-section__header__texts p {
-  max-width: 45%;
-  margin: 0; 
-  font-family: var(--font-inter);
-  font-size: var(--text-base);
-  color: var(--c-text-muted);
-  line-height: 1.6;
-}
-
 .tech-section__loop {
   width: min(1900px, 98%);
-  margin: 0 auto;
   padding: 10px 60px;
   border-radius: 42px;
 }

@@ -1,0 +1,39 @@
+.tag {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  align-self:      flex-start;
+
+  padding:       0.75rem 1rem;
+  border-radius: var(--radius-full);
+  border:        1px solid var(--c-pink);
+
+  font-family:    var(--font-secondary);
+  font-size:      var(--text-sm);
+  font-weight:    600;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color:          var(--c-pink);
+
+  transition:
+    transform    .3s ease,
+    border-color .3s ease,
+    color        .3s ease;
+}
+
+.tag:hover {
+  border-color: var(--c-pink);
+  color:        var(--c-pink);
+}
+
+.tag__secondary {
+  font-size:    var(--text-xs);
+  padding:      0.4rem 0.75rem;
+  border-color: var(--c-purple);
+  color:        var(--c-purple);
+}
+
+.tag__secondary:hover {
+  border-color: var(--c-purple);
+  color:        var(--c-purple);
+}

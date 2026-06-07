@@ -1,17 +1,16 @@
 'use client'
 
 import { useEffect } from 'react'
-import Loader from '@/components/ui/Loader'
-import Cursor from '@/components/ui/Cursor'
+import Loader from '@/components/ui/animated/Loader'
 import Navbar from '@/components/layout/Navbar'
 import Hero from '@/components/sections/Hero'
 import Work from '@/components/sections/Work'
 import About from '@/components/sections/About'
 import Contact from '@/components/sections/Contact'
-import SmoothScroll from '@/components/ui/SmoothScroll'
+import SmoothScroll from '@/components/ui/animated/SmoothScroll'
 import Transition from '@/components/sections/Transition'
 import TechLoop from '@/components/sections/TechLoop'
-import CurvedLoop from '@/components/ui/CurvedLoop'
+import CurvedLoop from '@/components/ui/animated/CurvedLoop'
 
 function ErudaDebug() {
   useEffect(() => {
@@ -27,7 +26,6 @@ export default function Home() {
     <>
       {process.env.NODE_ENV === 'development' && <ErudaDebug />}
       <Loader />
-      <Cursor />
       <SmoothScroll>
         <Navbar />
         <main>
@@ -35,29 +33,33 @@ export default function Home() {
             <Hero />
           </section>
 
+          
           <section id="tech">
             <TechLoop />
           </section>
 
+          
           <section id="work">
             <Work />
           </section>
 
+          
           <CurvedLoop speed={3.0} curveAmount={380} direction="left" interactive visibleOn="mobile" />
 
           <section id="transition" className="transition-wrapper">
             <Transition />
           </section>
-
+          
           <section id="about">
             <About />
           </section>
-
-          <CurvedLoop speed={3.0} curveAmount={400} direction="left" interactive visibleOn="desktop" />
-
+          
+          <CurvedLoop speed={3.0} curveAmount={300} direction="left" interactive visibleOn="desktop" />
+          
           <section id="contact">
             <Contact />
           </section>
+            
         </main>
       </SmoothScroll>
     </>

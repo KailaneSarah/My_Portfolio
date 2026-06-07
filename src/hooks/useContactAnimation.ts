@@ -9,7 +9,6 @@ export function useContactAnimation(refs: {
   line1:   RefObject<HTMLSpanElement>;
   line2:   RefObject<HTMLSpanElement>;
   email:   RefObject<HTMLAnchorElement>;
-  footer:  RefObject<HTMLDivElement>;
 }) {
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -35,11 +34,7 @@ export function useContactAnimation(refs: {
           { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" },
           "-=0.4"
         )
-        .fromTo(refs.footer.current,
-          { opacity: 0 },
-          { opacity: 1, duration: 0.6, ease: "power2.out" },
-          "-=0.2"
-        );
+
     }, refs.section);
 
     return () => ctx.revert();

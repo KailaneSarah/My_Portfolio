@@ -1,0 +1,36 @@
+:root,
+[data-theme='light'] {
+  --c-bg: #f8f5ff;
+  --c-fg: #0a0614;
+
+  --c-surface: #ede8f5;
+  --c-surface-elevated: rgba(255, 255, 255, 0.72);
+
+  --c-text-muted: rgba(10, 6, 20, 0.66);
+  --c-text-soft: rgba(10, 6, 20, 0.42);
+
+  --c-border: rgba(10, 6, 20, 0.08);
+  --c-border-strong: rgba(10, 6, 20, 0.16);
+
+  --shadow-sm: 0 4px 12px rgba(10, 6, 20, 0.04);
+  --shadow-md: 0 10px 30px rgba(10, 6, 20, 0.08);
+  --shadow-lg: 0 24px 80px rgba(10, 6, 20, 0.12);
+}
+
+[data-theme='dark'] {
+  --c-bg: #0a0614;
+  --c-fg: #f8f5ff;
+
+  --c-surface: #140d1d;
+  --c-surface-elevated: rgba(24, 14, 34, 0.72);
+
+  --c-text-muted: rgba(248, 245, 255, 0.7);
+  --c-text-soft: rgba(248, 245, 255, 0.45);
+
+  --c-border: rgba(255, 255, 255, 0.08);
+  --c-border-strong: rgba(255, 255, 255, 0.16);
+
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.18);
+  --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.24);
+  --shadow-lg: 0 24px 80px rgba(0, 0, 0, 0.34);
+}

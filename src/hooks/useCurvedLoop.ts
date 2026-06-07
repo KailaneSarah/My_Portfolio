@@ -24,15 +24,25 @@ export function useCurvedLoop({ speed, direction, interactive }: UseCurvedLoopPr
   const [repeatCount, setRepeatCount] = useState(1);
 
   useEffect(() => {
-    if (measureRef.current) {
+    const measure = () => {
+      if (!measureRef.current) return;
       const length = measureRef.current.getComputedTextLength();
       if (length > 0) {
         spacingRef.current = length;
+        offsetRef.current  = 0;                          // evita salto ao re-medir
         const count = Math.ceil((1440 * 3) / length) + 4;
         setRepeatCount(count);
         setReady(true);
       }
-    }
+    };
+
+    measure();
+
+    // observa o elemento de medição — dispara quando sai de display:none
+    const observer = new ResizeObserver(measure);
+    if (measureRef.current) observer.observe(measureRef.current);
+
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
@@ -58,9 +68,9 @@ export function useCurvedLoop({ speed, direction, interactive }: UseCurvedLoopPr
 
   const onPointerDown = useCallback((e: React.PointerEvent<SVGSVGElement>) => {
     if (!interactive) return;
-    dragRef.current = true;
+    dragRef.current  = true;
     lastXRef.current = e.clientX;
-    velRef.current = 0;
+    velRef.current   = 0;
     (e.target as HTMLElement).setPointerCapture(e.pointerId);
   }, [interactive]);
 
@@ -68,7 +78,7 @@ export function useCurvedLoop({ speed, direction, interactive }: UseCurvedLoopPr
     if (!interactive || !dragRef.current || !textPathRef.current) return;
     const dx = e.clientX - lastXRef.current;
     lastXRef.current = e.clientX;
-    velRef.current = dx;
+    velRef.current   = dx;
 
     offsetRef.current += dx;
     const w = spacingRef.current;
@@ -81,7 +91,7 @@ export function useCurvedLoop({ speed, direction, interactive }: UseCurvedLoopPr
   const endDrag = useCallback(() => {
     if (!interactive) return;
     dragRef.current = false;
-    dirRef.current = velRef.current > 0 ? "right" : "left";
+    dirRef.current  = velRef.current > 0 ? "right" : "left";
   }, [interactive]);
 
   return {

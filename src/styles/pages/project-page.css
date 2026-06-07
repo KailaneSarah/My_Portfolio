@@ -1,0 +1,41 @@
+.work-grid {
+  display: grid;
+
+  grid-template-columns: 1.2fr .8fr;
+
+  gap: var(--space-3xl);
+}
+
+.work-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.work-item {
+  position: relative;
+
+  overflow: hidden;
+
+  padding: 2.5rem .5rem;
+
+  border-bottom: 1px solid var(--c-border);
+}
+
+.work-preview {
+  position: sticky;
+
+  top: 6rem;
+
+  height: 70vh;
+}
+
+@media (max-width: 1024px) {
+  .work-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .work-preview {
+    position: relative;
+    top: 0;
+  }
+}

@@ -1,16 +1,14 @@
 .contact {
   position: relative;
   min-height: 100vh;
-  overflow: hidden;       
+  overflow: hidden;
   padding: 8rem 2.5rem 2rem;
   background: var(--c-bg);
 }
 
-/* BACKGROUND */
-
 .contact__bg {
   position: absolute;
-  inset: 0;               
+  inset: 0;
   z-index: 0;
 }
 
@@ -20,8 +18,6 @@
   display: block;
 }
 
-/* CONTENT */
-
 .contact__inner {
   position: relative;
   z-index: 2;
@@ -29,7 +25,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  pointer-events: none;   
+  pointer-events: none;
 }
 
 .contact__content {
@@ -39,8 +35,6 @@
   text-align: center;
   margin-block: auto;
 }
-
-/* BIG TITLE */
 
 .contact__big {
   margin-bottom: 3rem;
@@ -52,6 +46,9 @@
   color: var(--c-fg);
 }
 
+.contact__content .tag{
+  align-self: center;
+}
 .contact__big .line {
   display: block;
   overflow: hidden;
@@ -62,25 +59,15 @@
   display: inline-block;
 }
 
-
-.contact__big .stroke-text {
-  color: transparent;
-  -webkit-text-stroke: 2px var(--c-fg);
-}
-
-/* EMAIL */
-
 .contact__email {
-  pointer-events: auto;   
+  pointer-events: auto;
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
   padding-bottom: 0.35rem;
-  border-bottom: 1px solid var(--c-purple);
   text-decoration: none;
   font-family: var(--font-nunito);
   font-size: var(--text-base);
-  font-weight: 600;
   letter-spacing: var(--tracking-normal);
   color: var(--c-fg);
   transition:
@@ -94,8 +81,6 @@
   border-color: var(--c-pink);
   gap: 1.2rem;
 }
-
-/* FOOTER */
 
 .contact__footer {
   display: flex;
@@ -120,7 +105,7 @@
   display: flex;
   align-items: center;
   gap: 1.5rem;
-  pointer-events: auto;  
+  pointer-events: auto;
 }
 
 .contact__footer-social {
@@ -151,8 +136,6 @@
 .contact__footer-social:hover::after {
   width: 100%;
 }
-
-/* RESPONSIVE */
 
 @media (max-width: 768px) {
   .contact {

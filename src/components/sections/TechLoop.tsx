@@ -1,6 +1,6 @@
 "use client";
 
-import LogoLoop from "@/components/ui/LogoLoop";
+import LogoLoop from "@/components/ui/animated/LogoLoop";
 import { SectionWrapper } from "@/components/layout/SectionWrapper";
 import {
   SiReact,
@@ -25,7 +25,7 @@ export default function TechLoop() {
     <SectionWrapper as="div" className="tech-section">
       <div className="tech-section__loop">
         <LogoLoop
-          logos={[...techLogos, ...techLogos, ...techLogos, ...techLogos]}
+          logos={[...techLogos, ...techLogos, ...techLogos, ...techLogos,...techLogos, ...techLogos]}
           speed={70}
           direction="left"
           logoHeight={54}
