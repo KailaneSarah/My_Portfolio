@@ -25,7 +25,7 @@ export default function ProjectNext({ prev, next }: Props) {
             Previous project
           </span>
           <span className="project-next__title">{prev.title}</span>
-          <span className="tech-section__badge project-next__category">{prev.category}</span>
+          <span className="tag tag__secondary project-next__category">{prev.category}</span>
         </Link>
       )}
 
@@ -40,7 +40,7 @@ export default function ProjectNext({ prev, next }: Props) {
             </span>
           </span>
           <span className="project-next__title">{next.title}</span>
-          <span className="tech-section__badge project-next__category">{next.category}</span>
+          <span className="tag tag__secondary project-next__category">{next.category}</span>
         </Link>
       )}
 

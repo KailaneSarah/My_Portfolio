@@ -1,0 +1,460 @@
+/* ============================================================
+   WORK PAGE
+   Página de projeto individual (/work/[slug]).
+   Não redefine cor, raio, espaçamento ou easing — usa direto
+   os tokens globais (tokens/, base/, layout/), do mesmo jeito
+   que hero.css, work.css e logoLoop.css fazem.
+   ============================================================ */
+
+.work-page {
+  /* único valor sem token exato: o "piso" do gutter fluido */
+  --wp-gutter: clamp(1.25rem, 4vw, var(--section-padding-x));
+
+  background: var(--c-bg);
+  color: var(--c-fg);
+}
+
+/* ------------------------------------------------------------
+   1. HERO (ProjectHero)
+   A timeline GSAP escreve top/left/xPercent/yPercent no .group,
+   clip-path no .cover e scale no .title. Por isso:
+     - .scroll precisa de altura extra (curso de scroll pro scrub)
+     - .sticky fica preso no topo ocupando a viewport
+     - .group precisa ser position: absolute
+
+   Dois estados de alinhamento interno:
+     - padrão: centralizado (estado inicial, antes do scroll)
+     - .is-docked: à esquerda (estado final, adicionado pelo GSAP onLeave)
+   ------------------------------------------------------------ */
+
+.project-hero__scroll {
+  position: relative;
+  height: 200vh; /* 100vh de curso de scroll para a animação rodar */
+}
+
+.project-hero__sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--c-bg);
+}
+
+.project-hero__particles {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.project-hero__cover {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  /* estado inicial igual ao fromTo do GSAP, evita "flash" */
+  clip-path: inset(30% 20% 30% 20% round var(--radius-lg));
+  will-change: clip-path;
+}
+
+.project-hero__img {
+  object-fit: cover;
+}
+
+.project-hero__img-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.65) 0%,
+    rgba(0, 0, 0, 0.15) 45%,
+    rgba(0, 0, 0, 0.45) 100%
+  );
+}
+
+.project-hero__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* — estado inicial: grupo e filhos centralizados — */
+.project-hero__group {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  width: min(90vw, 60rem);
+  will-change: transform, top, left;
+}
+
+.project-hero__title {
+  width: fit-content;
+  text-align: center;
+  margin: 0;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  font-size: clamp(var(--text-2xl), 13vw, 11rem);
+  color: transparent;
+  background: linear-gradient(120deg, #fff 0%, #fff 60%, var(--c-pink) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  will-change: transform;
+}
+
+.project-hero__desc {
+  max-width: 42ch;
+  text-align: center;
+  opacity: 0; /* GSAP faz o fade-in */
+}
+
+.project-hero__desc p {
+  margin: 0;
+  line-height: 1.6;
+  font-size: clamp(0.95rem, 1.4vw, var(--text-md));
+  color: var(--c-text-muted);
+}
+
+/* — estado final: .is-docked adicionado pelo GSAP onLeave — */
+.project-hero__group.is-docked {
+  align-items: flex-start;
+}
+
+.project-hero__group.is-docked .project-hero__title {
+  text-align: left;
+}
+
+.project-hero__group.is-docked .project-hero__desc {
+  text-align: left;
+}
+
+/* ------------------------------------------------------------
+   2. CORPO  (SectionWrapper .about → .work__inner / .work-page__body)
+   ------------------------------------------------------------ */
+
+.work-page .work__inner {
+  width: 100%;
+  max-width: var(--container-md);
+  margin-inline: auto;
+  padding-inline: var(--wp-gutter);
+}
+
+.work-page__body {
+  /* fluxo block (não flex): o pin do GSAP quebra dentro de
+     container flex/grid — o pin-spacer não reserva espaço,
+     causando sobreposição e corte das imagens */
+  padding-block: clamp(var(--space-3xl), 10vw, 9rem);
+}
+
+.work-page__body > * + * {
+  margin-top: clamp(var(--space-3xl), 9vw, 8rem);
+}
+
+/* ------------------------------------------------------------
+   3. META  (ProjectMeta / MetaCard — bento de Year/Client/Type/About/Category)
+   ------------------------------------------------------------ */
+
+.project-meta-bento {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+  gap: var(--space-lg);
+}
+
+.meta-card {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding: var(--space-xl);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--c-border);
+  background:
+    radial-gradient(
+      circle at var(--glow-x, 50%) var(--glow-y, 50%),
+      rgba(var(--c-pink-rgb), calc(var(--glow-intensity, 0) * 0.16)),
+      transparent 60%
+    ),
+    var(--c-surface-elevated);
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.meta-card:hover {
+  border-color: color-mix(in srgb, var(--c-pink) 40%, transparent);
+  box-shadow: var(--shadow-md);
+}
+
+.meta-card__label {
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--c-text-soft);
+}
+
+.meta-card__value {
+  font-family: var(--font-primary);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--c-fg);
+}
+
+/* "About" e "Category" precisam de mais largura — ocupam 2 colunas */
+.meta-card--desc,
+.meta-card--tags {
+  grid-column: span 2;
+}
+
+.meta-card--desc .meta-card__value {
+  font-family: var(--font-secondary);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--c-text-muted);
+}
+
+.meta-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+.meta-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.4rem 0.75rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--c-border-strong);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--c-text-muted);
+}
+
+/* ------------------------------------------------------------
+   4. SEÇÕES DE CONTEÚDO  (ProjectSection — scroll horizontal)
+   BASE (mobile / sem GSAP): scroll horizontal nativo com snap.
+   DESKTOP: o GSAP pina a seção e translada a track via transform.
+   ------------------------------------------------------------ */
+
+.project-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.project-section__title {
+  position: relative;
+  margin: 0;
+  padding-left: 1.25rem;
+  font-size: clamp(var(--text-lg), 3vw, 2.25rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+/* marcador de seção na cor de destaque */
+.project-section__title::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.15em;
+  bottom: 0.15em;
+  width: 3px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(var(--c-pink), var(--c-purple));
+}
+
+.project-section__track {
+  display: flex;
+  gap: clamp(var(--space-md), 2vw, var(--space-lg));
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: var(--space-sm);
+}
+
+.project-section__item {
+  position: relative;
+  flex: 0 0 auto;
+  width: min(80vw, 360px);
+  aspect-ratio: 4 / 3; /* Image fill precisa de pai dimensionado */
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--c-border);
+  background: var(--c-surface);
+  scroll-snap-align: center;
+}
+
+.project-section__img {
+  object-fit: cover;
+  transition: transform 0.6s var(--ease-expo);
+}
+
+.project-section__item:hover .project-section__img {
+  transform: scale(1.04);
+}
+
+/* ----- DESKTOP: pin + scroll horizontal dirigido por GSAP ----- */
+@media (min-width: 769px) and (prefers-reduced-motion: no-preference) {
+  .project-section {
+    height: 100vh;
+    justify-content: flex-start;
+    gap: clamp(var(--space-lg), 3vw, var(--space-xl));
+    padding-block: clamp(var(--space-2xl), 6vh, var(--space-3xl)) 0;
+    overflow: hidden; /* clipa a track transladada nas bordas da coluna */
+  }
+
+  .project-section__track {
+    flex: 1;
+    align-items: center;
+    overflow: visible;   /* transform controla o movimento, não o scroll */
+    flex-wrap: nowrap;
+    scroll-snap-type: none;
+    padding-bottom: 0;
+    will-change: transform;
+  }
+
+  .project-section__item {
+    width: clamp(340px, 34vw, 520px);
+    height: min(72vh, 680px);
+    aspect-ratio: auto;
+  }
+}
+
+/* ------------------------------------------------------------
+   5. NAVEGAÇÃO ENTRE PROJETOS  (ProjectNext)
+   ------------------------------------------------------------ */
+
+.project-next {
+  display: flex;
+  align-items: stretch;
+  gap: clamp(var(--space-md), 3vw, 2.5rem);
+  margin-top: clamp(var(--space-2xl), 7vw, var(--space-4xl));
+  padding-top: clamp(2.5rem, 5vw, var(--space-3xl));
+  border-top: 1px solid var(--c-border);
+}
+
+.project-next__item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: clamp(var(--space-lg), 3vw, 2.5rem);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--c-border);
+  background: var(--c-surface);
+  text-decoration: none;
+  color: var(--c-fg);
+  transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
+}
+
+.project-next__item:hover {
+  border-color: color-mix(in srgb, var(--c-pink) 50%, transparent);
+  background: var(--c-surface-elevated);
+  transform: translateY(-2px);
+}
+
+/* alinhamento prev (esquerda) vs next (direita) */
+.project-next__item--next {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.project-next__label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--c-text-muted);
+}
+
+.project-next__icon {
+  display: inline-flex;
+  width: 1.1em;
+  transition: transform 0.3s ease;
+}
+
+.project-next__icon svg {
+  width: 1em;
+  height: 1em;
+}
+
+.project-next__item--prev:hover .project-next__icon {
+  transform: translateX(-4px);
+}
+
+.project-next__item--next:hover .project-next__icon {
+  transform: translateX(4px);
+}
+
+.project-next__title {
+  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+/* badge reaproveita .tag/.tag__secondary; aqui só posiciona */
+.project-next__category {
+  align-self: flex-start;
+}
+
+.project-next__item--next .project-next__category {
+  align-self: flex-end;
+}
+
+.project-next__divider {
+  flex: 0 0 auto;
+  width: 1px;
+  background: var(--c-border);
+}
+
+/* ------------------------------------------------------------
+   6. RESPONSIVO  (768px = mesmo breakpoint do matchMedia do hero)
+   ------------------------------------------------------------ */
+
+@media (max-width: 768px) {
+  .project-hero__scroll {
+    height: 180vh;
+  }
+
+  .project-next {
+    flex-direction: column;
+  }
+
+  .project-next__divider {
+    width: 100%;
+    height: 1px;
+  }
+
+  .project-next__item--next {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .project-next__item--next .project-next__category {
+    align-self: flex-start;
+  }
+}
+
+/* respeita usuários que reduzem movimento */
+@media (prefers-reduced-motion: reduce) {
+  .meta-card,
+  .project-section__img,
+  .project-next__item,
+  .project-next__icon {
+    transition: none;
+  }
+}

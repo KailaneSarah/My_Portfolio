@@ -44,6 +44,9 @@ export const projects: Project[] = [
         images: [
           { src: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80", alt: "Sistema de gestão tela 1" },
           { src: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=1200&q=80", alt: "Sistema de gestão tela 2" },
+           { src: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=1200&q=80", alt: "Sistema de gestão tela 2" },
+            { src: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=1200&q=80", alt: "Sistema de gestão tela 2" },
+             { src: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=1200&q=80", alt: "Sistema de gestão tela 2" },
         ],
       },
     ],

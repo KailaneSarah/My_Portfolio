@@ -4,8 +4,8 @@ import { useRef, useState } from "react";
 import { SectionWrapper } from "@/components/layout/SectionWrapper";
 import { useWorkAnimation } from "@/hooks/useWorkAnimation";
 import { PROJECTS } from "@/data/project";
-import { WorkItem } from "@/components/ui/static/work/WorkItem";
-import { WorkPreview } from "@/components/ui/static/work/WorkPreview";
+import { WorkItem } from "@/components/ui/static/works/WorkItem";
+import { WorkPreview } from "@/components/ui/static/works/WorkPreview";
 
 export default function Work() {
   const [activeIndex, setActiveIndex] = useState(0);

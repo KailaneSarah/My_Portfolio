@@ -2,13 +2,14 @@
 
 import React from 'react';
 import { useMetaCard } from '@/hooks/useMetaCard';
-import { GLOW_COLOR } from '@/styles/projectMeta.styles.css';
 
 interface MetaCardProps {
   label: string;
   className?: string;
   children: React.ReactNode;
 }
+
+const GLOW_COLOR = '132, 0, 255';
 
 const GLOW_DEFAULTS = {
   '--glow-x': '50%',
