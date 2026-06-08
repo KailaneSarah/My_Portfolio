@@ -1,31 +1,10 @@
-/* ============================================================
-   WORK PAGE
-   Página de projeto individual (/work/[slug]).
-   Não redefine cor, raio, espaçamento ou easing — usa direto
-   os tokens globais (tokens/, base/, layout/), do mesmo jeito
-   que hero.css, work.css e logoLoop.css fazem.
-   ============================================================ */
-
 .work-page {
-  /* único valor sem token exato: o "piso" do gutter fluido */
   --wp-gutter: clamp(1.25rem, 4vw, var(--section-padding-x));
 
   background: var(--c-bg);
   color: var(--c-fg);
 }
 
-/* ------------------------------------------------------------
-   1. HERO (ProjectHero)
-   A timeline GSAP escreve top/left/xPercent/yPercent no .group,
-   clip-path no .cover e scale no .title. Por isso:
-     - .scroll precisa de altura extra (curso de scroll pro scrub)
-     - .sticky fica preso no topo ocupando a viewport
-     - .group precisa ser position: absolute
-
-   Dois estados de alinhamento interno:
-     - padrão: centralizado (estado inicial, antes do scroll)
-     - .is-docked: à esquerda (estado final, adicionado pelo GSAP onLeave)
-   ------------------------------------------------------------ */
 
 .project-hero__scroll {
   position: relative;
@@ -148,9 +127,7 @@
 }
 
 .work-page__body {
-  /* fluxo block (não flex): o pin do GSAP quebra dentro de
-     container flex/grid — o pin-spacer não reserva espaço,
-     causando sobreposição e corte das imagens */
+
   padding-block: clamp(var(--space-3xl), 10vw, 9rem);
 }
 

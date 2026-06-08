@@ -33,10 +33,8 @@ export default function ProjectSection({ title, images }: Props) {
         const track = trackRef.current;
         if (!section || !track) return;
 
-        // quanto a track transborda além da coluna visível
         const getScrollAmount = () => track.scrollWidth - section.offsetWidth;
 
-        // sem transbordo (poucas imagens) => não pina, fica estático
         if (getScrollAmount() <= 0) return;
 
         gsap.to(track, {
