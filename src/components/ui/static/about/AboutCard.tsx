@@ -16,7 +16,7 @@ export function AboutCard({ cardRef }: AboutCardProps) {
         handle="sarahdev"
         status="Available"
         contactText="Contato"
-        avatarUrl="https://i.pravatar.cc/1000"
+        avatarUrl="/Image.png"
         iconUrl="https://cdn-icons-png.flaticon.com/512/5968/5968292.png"
         grainUrl="https://www.transparenttextures.com/patterns/asfalt-dark.png"
         showUserInfo
