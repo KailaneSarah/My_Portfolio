@@ -80,7 +80,7 @@ export const projects: Project[] = [
     title: "Site Institucional APCDT",
     heroWord: "APCDT",
     cover: {
-      src: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=1400&q=80",
+      src: "/APCDT-01.png",
       alt: "Cover do projeto Site Institucional APCDT",
     },
     category: ["Web Development"],
@@ -91,8 +91,9 @@ export const projects: Project[] = [
       {
         title: "Design",
         images: [
-          { src: "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?w=1200&q=80", alt: "Site APCDT tela 1" },
-          { src: "https://images.unsplash.com/photo-1522542550221-31fd19575a2d?w=1200&q=80", alt: "Site APCDT tela 2" },
+          { src: "/APCDT-01.png", alt: "Site APCDT tela 1" },
+          { src: "/APCDT-02.png", alt: "Site APCDT tela 2" },
+          { src: "/APCDT-03.png", alt: "Site APCDT tela 3" },
         ],
       },
     ],
