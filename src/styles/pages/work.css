@@ -108,6 +108,19 @@
   visibility: visible;
 }
 
+.work__preview__img {
+  object-fit: cover;
+  object-position: center top;
+}
+
+.work__preview__slide:has(.work__preview__img)::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, transparent 60%);
+  z-index: 1;
+}
+
 .work__preview__glow {
   position: absolute;
   inset: 0;

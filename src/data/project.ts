@@ -22,6 +22,7 @@ export const PROJECTS = [
     tag: "Web Development",
     color: "#E040FB",
     bg: "linear-gradient(135deg, #0d0d1a, #3B5BDB)",
+    image: "/APCDT-02.png",
   },
   {
     id: 4,

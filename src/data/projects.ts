@@ -80,7 +80,7 @@ export const projects: Project[] = [
     title: "Site Institucional APCDT",
     heroWord: "APCDT",
     cover: {
-      src: "/APCDT-01.png",
+      src: "/APCDT-02.png",
       alt: "Cover do projeto Site Institucional APCDT",
     },
     category: ["Web Development"],
