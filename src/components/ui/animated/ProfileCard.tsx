@@ -180,12 +180,6 @@ export default function ProfileCard({
           <div className={styles.pcShine} />
           <div className={styles.pcGlare} />
 
-          <div className={styles.pcContent}>
-            <div className={styles.pcDetails}>
-              <h3>{name}</h3>
-              <p>{title}</p>
-            </div>
-          </div>
         </div>
 
         {showUserInfo && (
