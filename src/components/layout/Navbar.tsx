@@ -65,7 +65,7 @@ export default function Navbar() {
   return (
     <>
       <nav ref={navRef} className="nav">
-        <a href="#home" className="nav__logo">
+        <a href="/" className="nav__logo">
           @SarahDev
         </a>
 
@@ -99,9 +99,9 @@ export default function Navbar() {
         ))}
 
         <div className="menu-overlay__socials">
-          <a href="https://instagram.com" target="_blank" rel="noopener">↗ Instagram</a>
-          <a href="https://linkedin.com"  target="_blank" rel="noopener">↗ LinkedIn</a>
-          <a href="https://behance.net"   target="_blank" rel="noopener">↗ Behance</a>
+          <a href="https://www.instagram.com/kailane.sarah/" target="_blank" rel="noopener noreferrer">↗ Instagram</a>
+          <a href="https://www.linkedin.com/in/kailane-sarah/" target="_blank" rel="noopener noreferrer">↗ LinkedIn</a>
+          <a href="https://github.com/KailaneSarah" target="_blank" rel="noopener noreferrer">↗ GitHub</a>
         </div>
       </div>
     </>
