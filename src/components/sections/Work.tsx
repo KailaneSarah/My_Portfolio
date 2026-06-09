@@ -25,8 +25,8 @@ export default function Work() {
         </div>
         <div className="div__desc">
           <p className="">
-            Dois projetos entregues, problemas reais resolvidos.
-            Mais a caminho.
+            Da identidade digital de uma ONG a um app para deficiência
+            visual — projetos com propósito, entregues com atenção.
           </p>
         </div>
       </header>
