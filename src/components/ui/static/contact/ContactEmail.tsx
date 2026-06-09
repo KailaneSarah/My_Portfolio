@@ -1,6 +1,6 @@
 import { RefObject } from "react";
 
-const EMAIL = "kailaneSarah.developer@email.com";
+const EMAIL = "alexmagalhaesprofissional@gmail.com";
 
 interface ContactEmailProps {
   emailRef: RefObject<HTMLAnchorElement>;

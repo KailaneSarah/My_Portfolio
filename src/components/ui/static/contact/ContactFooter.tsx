@@ -1,9 +1,9 @@
 import { RefObject } from "react";
 
 const SOCIALS = [
-  { name: "Instagram", href: "https://instagram.com" },
-  { name: "LinkedIn",  href: "https://linkedin.com"  },
-  { name: "Behance",   href: "https://behance.net"   },
+  { name: "Instagram", href: "https://www.instagram.com/kailane.sarah/"    },
+  { name: "LinkedIn",  href: "https://www.linkedin.com/in/kailane-sarah/"  },
+  { name: "GitHub",    href: "https://github.com/KailaneSarah"             },
 ];
 
 interface ContactFooterProps {

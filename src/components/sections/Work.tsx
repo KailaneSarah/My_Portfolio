@@ -25,8 +25,8 @@ export default function Work() {
         </div>
         <div className="div__desc">
           <p className="">
-            Uma seleção de aplicações web, interfaces mobile e sistemas ponta a ponta
-            desenvolvidos com foco em performance, usabilidade e design refinado.
+            Dois projetos entregues, problemas reais resolvidos.
+            Mais a caminho.
           </p>
         </div>
       </header>

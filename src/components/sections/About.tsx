@@ -30,7 +30,7 @@ export default function About() {
         <div className="about__side">
           <header className="section-header">
             <span className="tag">About me</span>
-            <h1 className="section__title">Design que funciona. Código que encanta.</h1>
+            <h1 className="section__title">Código com propósito. Interfaces que respeitam quem usa.</h1>
           </header>
 
           <AboutBody   bodyRef={body}     />

@@ -48,8 +48,7 @@ export default function Hero() {
 
             <p className="section__desc hero__desc">
               <span ref={desc}>
-                Desenvolvedora de software, mobile e web
-                & especialista em UI, UX e acessibilidade
+                Fullstack developer — web, mobile e acessibilidade.
               </span>
             </p>
           </header>
