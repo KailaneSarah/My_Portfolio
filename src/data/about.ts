@@ -1,11 +1,11 @@
 export const SKILLS = [
-  "Branding",
-  "UX/UI Design",
-  "Web Development",
-  "Motion",
-  "Art Direction",
-  "Typography",
   "React / Next.js",
+  "Flutter",
+  "WordPress",
+  "TypeScript",
+  "Node.js",
+  "UX/UI Design",
   "Figma",
+  "Acessibilidade",
   "GSAP",
 ];

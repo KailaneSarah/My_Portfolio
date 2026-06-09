@@ -54,7 +54,7 @@ export const projects: Project[] = [
   },
   {
     slug: "blind-ds",
-    title: "BlindDS ",
+    title: "BlindDS",
     heroWord: "BLINDDS",
     cover: {
       src: "https://images.unsplash.com/photo-1526498460520-4c246339dccb?w=1400&q=80",
@@ -63,7 +63,7 @@ export const projects: Project[] = [
     category: ["Mobile Development"],
     year: "2024",
     client: "—",
-    description: "Aplicativo mobile focado em acessibilidade para pessoas com deficiência visual.",
+    description: "Aplicativo mobile desenvolvido em Flutter para pessoas com deficiência visual. O BlindDS oferece uma interface acessível para aprender e montar estruturas de dados — com navegação otimizada para leitores de tela e sem dependência de estímulo visual.",
     sections: [
       {
         title: "Interface",
@@ -86,7 +86,7 @@ export const projects: Project[] = [
     category: ["Web Development"],
     year: "2024",
     client: "APCDT",
-    description: "Site institucional desenvolvido para a APCDT com foco em acessibilidade e clareza de informação.",
+    description: "Site institucional desenvolvido em WordPress para a APCDT, ONG que acolhe pessoas com diferentes tipos de deficiência. O projeto reúne seis páginas, um portal web e uma plataforma de captação de doações e cadastro de voluntários — com foco em acessibilidade, clareza de informação e facilidade de manutenção pela própria equipe da organização.",
     sections: [
       {
         title: "Design",

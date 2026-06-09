@@ -10,13 +10,15 @@ export function AboutBody({ bodyRef }: AboutBodyProps) {
   return (
     <div ref={bodyRef} className="about__body">
       <p>
-        Sou designer e desenvolvedor com foco em criar interfaces que
-        equilibram estética refinada e experiências funcionais.
+        Sou Kailane Sarah, desenvolvedora fullstack e estudante
+        apaixonada por construir produtos digitais que unem código
+        sólido e design com intenção.
       </p>
       <p>
-        Acredito que o bom design é invisível — ele guia as pessoas
-        naturalmente, sem esforço. Cada detalhe importa, desde a
-        tipografia até o timing das animações.
+        Trabalho do front ao back — React, Next.js, Flutter, WordPress —
+        sempre com atenção à acessibilidade e à experiência de quem
+        vai usar o que eu construo. Por enquanto são poucos projetos,
+        mas cada um foi entregue com cuidado e propósito.
       </p>
     </div>
   );
