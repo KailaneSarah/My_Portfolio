@@ -3,15 +3,11 @@
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import ThemeToggle from '../ui/static/ThemeToggle'
-
-const NAV_LINKS = [
-  { label: 'Home',    href: '/#home'    },
-  { label: 'Work',    href: '/#work'    },
-  { label: 'About',   href: '/#about'   },
-  { label: 'Contact', href: '/#contact' },
-]
+import LanguageToggle from '../ui/static/LanguageToggle'
+import { useLanguage } from '@/context/LanguageContext'
 
 export default function Navbar() {
+  const { t } = useLanguage()
   const [open, setOpen] = useState(false)
   const overlayRef = useRef<HTMLDivElement>(null)
   const itemsRef   = useRef<HTMLAnchorElement[]>([])
@@ -62,6 +58,13 @@ export default function Navbar() {
 
   const close = () => setOpen(false)
 
+  const NAV_LINKS = [
+    { label: t.nav.home,    href: '/#home'    },
+    { label: t.nav.work,    href: '/#work'    },
+    { label: t.nav.about,   href: '/#about'   },
+    { label: t.nav.contact, href: '/#contact' },
+  ]
+
   return (
     <>
       <nav ref={navRef} className="nav">
@@ -70,12 +73,13 @@ export default function Navbar() {
         </a>
 
         <div className="nav__right">
+          <LanguageToggle />
           <ThemeToggle />
           <button
             ref={btnRef}
             className="nav__menu-btn"
             onClick={() => setOpen(v => !v)}
-            aria-label={open ? 'Fechar menu' : 'Abrir menu'}
+            aria-label={open ? t.nav.closeMenu : t.nav.openMenu}
           >
             <span ref={bar1Ref} />
             <span ref={bar2Ref} />

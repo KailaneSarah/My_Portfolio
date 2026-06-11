@@ -7,8 +7,10 @@ import { AboutCard }    from "@/components/ui/static/about/AboutCard";
 import { AboutBody }    from "@/components/ui/static/about/AboutBody";
 import { AboutSkills }  from "@/components/ui/static/about/AboutSkills";
 import { AboutResume }  from "@/components/ui/static/about/AboutResume";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function About() {
+  const { t } = useLanguage();
   const section = useRef<HTMLDivElement>(null);
   const words   = useRef<HTMLSpanElement[]>([]);
   const body    = useRef<HTMLDivElement>(null);
@@ -29,8 +31,8 @@ export default function About() {
 
         <div className="about__side">
           <header className="section-header">
-            <span className="tag">About me</span>
-            <h1 className="section__title">Código com propósito. Interfaces que respeitam quem usa.</h1>
+            <span className="tag">{t.about.tag}</span>
+            <h1 className="section__title">{t.about.title}</h1>
           </header>
 
           <AboutBody   bodyRef={body}     />

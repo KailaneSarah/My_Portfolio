@@ -1,4 +1,7 @@
+"use client";
+
 import { RefObject } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 
 const EMAIL = "kailanesarahpro@gmail.com";
 
@@ -7,9 +10,11 @@ interface ContactEmailProps {
 }
 
 export function ContactEmail({ emailRef }: ContactEmailProps) {
+  const { t } = useLanguage();
+
   return (
     <a ref={emailRef} href={`mailto:${EMAIL}`} className="contact__email">
-      Entre em contato por: {EMAIL}
+      {t.contact.emailPrefix} {EMAIL}
     </a>
   );
 }

@@ -4,8 +4,10 @@ import { useRef } from "react";
 import Aurora from "@/components/ui/animated/Aurora";
 import { SectionInner } from "@/components/layout/SectionWrapper";
 import { useHeroAnimation } from "@/hooks/useHeroAnimation";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Hero() {
+  const { t } = useLanguage();
   const eyebrow = useRef<HTMLSpanElement>(null);
   const line1   = useRef<HTMLSpanElement>(null);
   const line2   = useRef<HTMLSpanElement>(null);
@@ -30,14 +32,14 @@ export default function Hero() {
       <div className="hero__content">
         <SectionInner className="section__inner section__inner--center"> 
 
-          <header className="section-header section-header--center"> 
+          <header className="section-header section-header--center">
             <span className="tag">
-              <span ref={eyebrow}>Bem-vindo(a)!</span>
+              <span ref={eyebrow}>{t.hero.welcome}</span>
             </span>
 
             <h1 className="section__title hero__title">
               <span className="line">
-                <span ref={line1}>Oi, eu sou </span>
+                <span ref={line1}>{t.hero.greeting} </span>
               </span>
               <span className="line">
                 <span ref={line2}>
@@ -48,14 +50,14 @@ export default function Hero() {
 
             <p className="section__desc hero__desc">
               <span ref={desc}>
-                Fullstack developer — web, mobile e acessibilidade.
+                {t.hero.description}
               </span>
             </p>
           </header>
 
           <div ref={cta} className="hero__cta">
-            <a href="#work" className="btn-primary">Ver projetos</a>
-            <a href="#about" className="btn-secondary">Sobre mim</a>
+            <a href="#work" className="btn-primary">{t.hero.ctaWork}</a>
+            <a href="#about" className="btn-secondary">{t.hero.ctaAbout}</a>
           </div>
           
         </SectionInner>

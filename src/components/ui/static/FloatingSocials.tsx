@@ -1,3 +1,7 @@
+"use client";
+
+import { useLanguage } from "@/context/LanguageContext";
+
 const SOCIALS = [
   {
     name: "LinkedIn",
@@ -29,8 +33,10 @@ const SOCIALS = [
 ];
 
 export function FloatingSocials() {
+  const { t } = useLanguage();
+
   return (
-    <nav className="floating-socials" aria-label="Redes sociais">
+    <nav className="floating-socials" aria-label={t.nav.socials}>
       {SOCIALS.map(({ name, href, icon }) => (
         <a
           key={name}

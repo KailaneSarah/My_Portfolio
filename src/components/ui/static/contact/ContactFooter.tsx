@@ -1,4 +1,7 @@
+"use client";
+
 import { RefObject } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 
 const SOCIALS = [
   { name: "Instagram", href: "https://www.instagram.com/kailane.sarah/"    },
@@ -11,10 +14,12 @@ interface ContactFooterProps {
 }
 
 export function ContactFooter({ footerRef }: ContactFooterProps) {
+  const { t } = useLanguage();
+
   return (
     <div ref={footerRef} className="contact__footer">
       <span className="contact__footer-copy">
-        © {new Date().getFullYear()} Kailane Sarah — Todos os direitos reservados
+        © {new Date().getFullYear()} Kailane Sarah — {t.contact.footerCopy}
       </span>
 
       <div className="contact__footer-links">
