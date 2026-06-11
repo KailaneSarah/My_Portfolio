@@ -5,10 +5,10 @@ import gsap from 'gsap'
 import ThemeToggle from '../ui/static/ThemeToggle'
 
 const NAV_LINKS = [
-  { label: 'Home',    href: '#home'    },
-  { label: 'Work',    href: '#work'    },
-  { label: 'About',   href: '#about'   },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Home',    href: '/#home'    },
+  { label: 'Work',    href: '/#work'    },
+  { label: 'About',   href: '/#about'   },
+  { label: 'Contact', href: '/#contact' },
 ]
 
 export default function Navbar() {
