@@ -2,24 +2,33 @@
 
 import React from 'react';
 import { BentoGrid, BentoCard } from '@/components/ui/static/work/BentoGrid';
+import { useLanguage, pick } from '@/context/LanguageContext';
+import type { Localized } from '@/data/projects';
 import '@/styles/pages/workPage.css';
 
 interface ProjectMetaProps {
-  category: string[];
+  category: Localized<string[]>;
   year: string;
   client: string;
-  description: string;
+  type: Localized<string>;
+  about: Localized<string[]>;
 }
 
 export default function ProjectMeta({
   category,
   year,
   client,
-  description,
+  type,
+  about,
 }: ProjectMetaProps) {
+  const { language, t } = useLanguage();
+  const localizedCategory = pick(category, language);
+  const localizedType = pick(type, language);
+  const localizedAbout = pick(about, language);
+
   const features = [
     {
-      name: 'Year',
+      name: t.projectMeta.year,
       className: 'bento-card--sm',
       background: (
         <div className="bento-card__year-bg" aria-hidden="true">
@@ -31,34 +40,36 @@ export default function ProjectMeta({
       ),
     },
     {
-      name: 'Client',
+      name: t.projectMeta.client,
       className: 'bento-card--sm',
       children: (
         <span className="meta-card__value">{client}</span>
       ),
     },
     {
-      name: 'Type',
+      name: t.projectMeta.type,
       className: 'bento-card--sm',
       children: (
-        <span className="meta-card__value">Case Study</span>
+        <span className="meta-card__value">{localizedType}</span>
       ),
     },
     {
-      name: 'About',
+      name: t.projectMeta.about,
       className: 'bento-card--wide',
       children: (
         <div className="meta-card__value meta-card--desc-value">
-          {description}
+          {localizedAbout.map((paragraph, index) => (
+            <p key={index}>{paragraph}</p>
+          ))}
         </div>
       ),
     },
     {
-      name: 'Category',
+      name: t.projectMeta.category,
       className: 'bento-card--wide',
       children: (
         <div className="meta-tags">
-          {category.map((c) => (
+          {localizedCategory.map((c) => (
             <span key={c} className="meta-tag">
               {c}
             </span>

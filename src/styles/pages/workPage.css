@@ -16,7 +16,7 @@
   top: 0;
   height: 100vh;
   overflow: hidden;
-  background: linear-gradient(135deg, #0a0614 0%, #0a0614 55%, var(--c-violet) 85%, var(--c-pink) 100%);
+  //background: linear-gradient(135deg, #0a0614 0%, #0a0614 55%, var(--c-violet) 85%, var(--c-pink) 100%);
 }
 
 .project-hero__particles {
@@ -37,6 +37,10 @@
 
 .project-hero__img {
   object-fit: cover;
+}
+
+.project-hero__img--mobile {
+  display: none;
 }
 
 .project-hero__img-overlay {
@@ -83,9 +87,10 @@
   text-transform: uppercase;
   font-size: clamp(var(--text-2xl), 13vw, 11rem);
   color: transparent;
-  background: linear-gradient(120deg, #fff 0%, #fff 60%, var(--c-pink) 100%);
+  background: linear-gradient(120deg, var(--c-purple) ,var(--c-pink) 85%, var(--c-purple) 100%);
   -webkit-background-clip: text;
   background-clip: text;
+  transition: color 0.3s ease, background 0.3s ease;
   will-change: transform;
 }
 
@@ -98,8 +103,9 @@
 .project-hero__desc p {
   margin: 0;
   line-height: 1.6;
-  font-size: clamp(0.95rem, 1.4vw, var(--text-md));
+  font-size: clamp(var(--text-sm), 1.4vw, var(--text-md));
   color: var(--c-text-muted);
+  transition: color 0.3s ease;
 }
 
 /* — estado final: .is-docked adicionado pelo GSAP onLeave — */
@@ -109,10 +115,18 @@
 
 .project-hero__group.is-docked .project-hero__title {
   text-align: left;
+  color: #fff;
+  background: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
 }
 
 .project-hero__group.is-docked .project-hero__desc {
   text-align: left;
+}
+
+.project-hero__group.is-docked .project-hero__desc p {
+  color: #fff;
 }
 
 /* ------------------------------------------------------------
@@ -258,6 +272,12 @@
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   padding-bottom: var(--space-sm);
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.project-section__track::-webkit-scrollbar {
+  display: none;
 }
 
 .project-section__item {
@@ -405,6 +425,14 @@
 @media (max-width: 768px) {
   .project-hero__scroll {
     height: 180vh;
+  }
+
+  .project-hero__img--desktop {
+    display: none;
+  }
+
+  .project-hero__img--mobile {
+    display: block;
   }
 
   .project-next {

@@ -5,16 +5,20 @@ import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ParticlesBg from "@/components/ui/animated/ParticlesBg";
+import { useLanguage, pick } from "@/context/LanguageContext";
+import type { Localized, ProjectImage } from "@/data/projects";
 
 gsap.registerPlugin(ScrollTrigger);
 
 interface Props {
   heroWord: string;
-  description: string;
-  cover: { src: string; alt: string };
+  description: Localized<string>;
+  cover: ProjectImage;
+  coverMobile: ProjectImage;
 }
 
-export default function ProjectHero({ heroWord, description, cover }: Props) {
+export default function ProjectHero({ heroWord, description, cover, coverMobile }: Props) {
+  const { language } = useLanguage();
   const titleRef  = useRef<HTMLHeadingElement>(null);
   const descRef   = useRef<HTMLDivElement>(null);
   const groupRef  = useRef<HTMLDivElement>(null);
@@ -93,7 +97,7 @@ export default function ProjectHero({ heroWord, description, cover }: Props) {
         // fade-in da descrição durante o scroll
         tl.fromTo(descRef.current,
           { opacity: 0, y: 8 },
-          { opacity: 1, y: 0, color: "#ffffff", ease: "power1.inOut" },
+          { opacity: 1, y: 0, ease: "power1.inOut" },
           0.15
         );
 
@@ -125,10 +129,17 @@ export default function ProjectHero({ heroWord, description, cover }: Props) {
           <div className="project-hero__img-overlay" />
           <Image
             src={cover.src}
-            alt={cover.alt}
+            alt={pick(cover.alt, language)}
             fill
             priority
-            className="project-hero__img"
+            className="project-hero__img project-hero__img--desktop"
+          />
+          <Image
+            src={coverMobile.src}
+            alt={pick(coverMobile.alt, language)}
+            fill
+            priority
+            className="project-hero__img project-hero__img--mobile"
           />
         </div>
 
@@ -138,7 +149,7 @@ export default function ProjectHero({ heroWord, description, cover }: Props) {
               {heroWord}
             </h1>
             <div ref={descRef} className="project-hero__desc">
-              <p>{description}</p>
+              <p>{pick(description, language)}</p>
             </div>
           </div>
         </div>

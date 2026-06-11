@@ -4,13 +4,10 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useLanguage, pick } from "@/context/LanguageContext";
+import type { ProjectImage } from "@/data/projects";
 
 gsap.registerPlugin(ScrollTrigger);
-
-interface ProjectImage {
-  src: string;
-  alt: string;
-}
 
 interface Props {
   title: string;
@@ -18,6 +15,7 @@ interface Props {
 }
 
 export default function ProjectSection({ title, images }: Props) {
+  const { language } = useLanguage();
   const sectionRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
 
@@ -65,7 +63,7 @@ export default function ProjectSection({ title, images }: Props) {
             <div key={i} className="project-section__item">
               <Image
                 src={img.src}
-                alt={img.alt}
+                alt={pick(img.alt, language)}
                 fill
                 className="project-section__img"
               />

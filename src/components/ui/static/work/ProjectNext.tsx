@@ -1,10 +1,14 @@
+"use client";
+
 import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { useLanguage, pick } from "@/context/LanguageContext";
+import type { Localized } from "@/data/projects";
 
 interface ProjectRef {
   slug: string;
-  title: string;
-  category: string;
+  title: Localized<string>;
+  category: Localized<string>;
 }
 
 interface Props {
@@ -13,6 +17,8 @@ interface Props {
 }
 
 export default function ProjectNext({ prev, next }: Props) {
+  const { language, t } = useLanguage();
+
   return (
     <div className="project-next">
 
@@ -22,10 +28,10 @@ export default function ProjectNext({ prev, next }: Props) {
             <span className="project-next__icon">
               <ArrowLeft strokeWidth={2} />
             </span>
-            Previous project
+            {t.projectNext.previous}
           </span>
-          <span className="project-next__title">{prev.title}</span>
-          <span className="tag tag__secondary project-next__category">{prev.category}</span>
+          <span className="project-next__title">{pick(prev.title, language)}</span>
+          <span className="tag tag__secondary project-next__category">{pick(prev.category, language)}</span>
         </Link>
       )}
 
@@ -34,13 +40,13 @@ export default function ProjectNext({ prev, next }: Props) {
       {next && (
         <Link href={`/work/${next.slug}`} className="project-next__item project-next__item--next">
           <span className="project-next__label">
-            Next project
+            {t.projectNext.next}
             <span className="project-next__icon">
               <ArrowRight strokeWidth={2} />
             </span>
           </span>
-          <span className="project-next__title">{next.title}</span>
-          <span className="tag tag__secondary project-next__category">{next.category}</span>
+          <span className="project-next__title">{pick(next.title, language)}</span>
+          <span className="tag tag__secondary project-next__category">{pick(next.category, language)}</span>
         </Link>
       )}
 

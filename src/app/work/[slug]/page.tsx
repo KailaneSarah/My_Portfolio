@@ -23,8 +23,8 @@ export async function generateMetadata({ params }: Props) {
   if (!project) return {};
 
   return {
-    title: `${project.title} — Kailane Sarah`,
-    description: project.description,
+    title: `${project.title.en} — Kailane Sarah`,
+    description: project.description.en,
   };
 }
 
@@ -42,6 +42,7 @@ export default async function WorkPage({ params }: Props) {
           heroWord={project.heroWord}
           description={project.description}
           cover={project.cover}
+          coverMobile={project.coverMobile}
         />
 
         <SectionWrapper as="div" className="about" innerClassName="work__inner">
@@ -50,7 +51,8 @@ export default async function WorkPage({ params }: Props) {
               category={project.category}
               year={project.year}
               client={project.client}
-              description={project.description}
+              type={project.type}
+              about={project.about}
             />
 
             {project.sections.map((section) => (

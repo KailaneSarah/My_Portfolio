@@ -127,6 +127,14 @@
   color: var(--c-text-muted) !important;
 }
 
+.meta-card--desc-value p {
+  margin: 0;
+}
+
+.meta-card--desc-value p + p {
+  margin-top: var(--space-sm);
+}
+
 /* ------------------------------------------------------------
    Responsivo
    ------------------------------------------------------------ */
