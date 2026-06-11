@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Cursor from "@/components/ui/static/Cursor";
 import "../styles/globals.css";
 import { FloatingSocials } from "@/components/ui/static/FloatingSocials";
+import { LanguageProvider } from "@/context/LanguageContext";
 
 export default function RootLayout({
   children,
@@ -32,18 +33,20 @@ export default function RootLayout({
 
   if (!mounted) {
     return (
-      <html lang="pt-BR">
-        <body />
+      <html lang="en">
+        <body suppressHydrationWarning />
       </html>
     );
   }
 
   return (
-    <html lang="pt-BR" data-theme={theme}>
-      <body>
-        <Cursor />       
-        <FloatingSocials />   
-        {children}
+    <html lang="en" data-theme={theme}>
+      <body suppressHydrationWarning>
+        <LanguageProvider>
+          <Cursor />
+          <FloatingSocials />
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   );
