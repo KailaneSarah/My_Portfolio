@@ -54,17 +54,21 @@ export default function ProjectHero({ heroWord, description, cover }: Props) {
           },
         });
 
-        // move o grupo do centro para o canto inferior esquerdo
+        // move o grupo do centro para o canto inferior esquerdo.
+        // Usa apenas x/y/xPercent/yPercent (transform), nunca top/left —
+        // misturar propriedades de layout (%) com xPercent/yPercent no
+        // mesmo tween faz o GSAP duplicar o deslocamento de centralização
+        // em algumas larguras, jogando o grupo para fora da tela.
         tl.fromTo(groupRef.current,
           {
-            top:      "35%",
-            left:     "50%",
+            x:        "50vw",
+            y:        "35vh",
             xPercent: -50,
             yPercent: -50,
           },
           {
-            top:      "100%",
-            left:     isDesktop ? "2.5rem" : "1.25rem",
+            x:        isDesktop ? "2.5rem" : "1.25rem",
+            y:        "100vh",
             xPercent: 0,
             yPercent: -130,
             ease:     "power1.inOut",
