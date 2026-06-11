@@ -1,14 +1,14 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { SectionWrapper } from "@/components/layout/SectionWrapper";
 import { useWorkAnimation } from "@/hooks/useWorkAnimation";
 import { PROJECTS } from "@/data/project";
-import { WorkItem } from "@/components/ui/static/works/WorkItem";
-import { WorkPreview } from "@/components/ui/static/works/WorkPreview";
+import { WorkAccordion } from "@/components/ui/static/works/WorkAccordion";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Work() {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const { t } = useLanguage();
   const section = useRef<HTMLDivElement>(null);
   const header  = useRef<HTMLDivElement>(null);
   const items   = useRef<HTMLAnchorElement[]>([]);
@@ -18,33 +18,18 @@ export default function Work() {
   return (
     <SectionWrapper ref={section} className="section">
 
-      <header ref={header} className="section-header__split__grid">
-        <div className="div__title">
-          <span className="tag">Selected work</span>
-          <h2 className="section__title">Projetos</h2>
-        </div>
-        <div className="div__desc">
-          <p className="">
-            Da identidade digital de uma ONG a um app para deficiência
-            visual — projetos com propósito, entregues com atenção.
+      <div ref={header} className="work-layout">
+        <div className="work-layout__text">
+          <span className="tag">{t.work.tag}</span>
+          <h2 className="section__title">{t.work.title}</h2>
+          <p className="work-layout__desc">
+            {t.work.description}
           </p>
         </div>
-      </header>
 
-      <div className="work__grid">
-        <div className="work__list">
-          {PROJECTS.map((p, i) => (
-            <WorkItem
-              key={p.id}
-              project={p}
-              index={i}
-              onEnter={setActiveIndex}
-              itemsRef={items}
-            />
-          ))}
+        <div className="work-layout__gallery">
+          <WorkAccordion projects={PROJECTS} />
         </div>
-
-        <WorkPreview projects={PROJECTS} activeIndex={activeIndex} />
       </div>
 
     </SectionWrapper>
